@@ -1,44 +1,110 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GSLF — Homepage Design Concepts</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; background: #FAFAF9; color: #111; margin: 0; padding: 0; }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 80px 32px; }
-  h1 { font-size: 2rem; font-weight: 800; margin-bottom: 6px; }
-  .sub { color: #6B7280; font-size: 15px; margin-bottom: 48px; }
-  .card { display: block; border: 1px solid #E5E7EB; background: #fff; padding: 28px 32px; margin-bottom: 16px; text-decoration: none; color: inherit; transition: box-shadow .15s; }
-  .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-  .card-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 10px; }
-  .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
-  .card-desc { font-size: 14px; color: #6B7280; line-height: 1.6; }
-  .arrow { float: right; color: #D1D5DB; font-size: 1.2rem; }
-  footer { margin-top: 56px; font-size: 12px; color: #D1D5DB; border-top: 1px solid #F0F0EE; padding-top: 24px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; background: #FAFAF9; color: #111; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 80px 32px; }
+  h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+  .sub { color: #6B7280; font-size: 15px; line-height: 1.7; margin-bottom: 52px; }
+
+  .card { display: block; border: 1px solid #E5E7EB; background: #fff; padding: 32px 36px; margin-bottom: 20px; text-decoration: none; color: inherit; transition: box-shadow .18s, border-color .18s; }
+  .card:hover { box-shadow: 0 10px 32px rgba(0,0,0,.08); border-color: #D1D5DB; }
+
+  .card-tag { font-size: 10px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 12px; }
+  .card-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .card-title .arrow { color: #D1D5DB; font-weight: 400; flex-shrink: 0; margin-top: 2px; }
+  .card-desc { font-size: 14px; color: #6B7280; line-height: 1.65; margin-bottom: 20px; }
+
+  .divider { border: none; border-top: 1px solid #F3F4F6; margin: 20px 0; }
+
+  .why-label { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 12px; }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .why-list li { font-size: 13.5px; color: #374151; line-height: 1.6; padding-left: 20px; position: relative; }
+  .why-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #E5E7EB; flex-shrink: 0; }
+
+  /* accent dot per design */
+  .v1 .why-list li::before { background: #0D2B55; }
+  .v2 .why-list li::before { background: #059669; }
+  .v3 .why-list li::before { background: #F59E0B; }
+
+  .audience-tag {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 11px; font-weight: 600;
+    color: #6B7280;
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    padding: 6px 14px;
+    letter-spacing: .3px;
+  }
+
+  footer { margin-top: 64px; font-size: 12px; color: #D1D5DB; border-top: 1px solid #F0F0EE; padding-top: 24px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>GSLF — Design Concepts</h1>
-  <p class="sub">Three high-fidelity homepage directions for gslfoundation.org. Select a design to preview.</p>
+  <p class="sub">Three high-fidelity homepage directions for gslfoundation.org — each tailored to a different positioning strategy. Select a design to preview in full.</p>
 
-  <a href="GSLF_Homepage_HiFi.html" class="card">
+  <!-- V1 -->
+  <a href="GSLF_Homepage_HiFi.html" class="card v1">
     <div class="card-tag">Design V1 &nbsp;·&nbsp; Parchment Editorial</div>
-    <div class="card-title"><span class="arrow">→</span>Gates Foundation / CZI — Data-Trust Enterprise</div>
-    <div class="card-desc">56/44 split hero, parchment surface, program cards, vertical journey, editorial whitespace.</div>
+    <div class="card-title">
+      Gates Foundation / CZI — Data-Trust Enterprise
+      <span class="arrow">→</span>
+    </div>
+    <div class="card-desc">56/44 split hero, warm parchment surface, borderless program panels, vertical numbered journey, maximum editorial whitespace.</div>
+    <hr class="divider"/>
+    <div class="why-label">Why this design works</div>
+    <ul class="why-list">
+      <li>Whitespace and restrained typography signal institutional credibility — exactly what CSR heads, government bodies, and large grant makers look for before they trust an NGO with funds.</li>
+      <li>The impact numbers sit raw on the page with no decorative tiles — a deliberate choice that reads as transparency, not marketing, which is critical for donor confidence.</li>
+      <li>The saffron CTA is used once per section, making every call-to-action feel intentional rather than pushy — ideal for an audience that dislikes being "sold to."</li>
+      <li>Parchment warmth softens the authority of the layout so it doesn't feel cold — appealing to both institutional funders and first-generation students visiting for the first time.</li>
+    </ul>
+    <div class="audience-tag">Best for: CSR teams · Institutional donors · Government partners · Policy audiences</div>
   </a>
 
-  <a href="GSLF_Homepage_HiFi_v2.html" class="card">
+  <!-- V2 -->
+  <a href="GSLF_Homepage_HiFi_v2.html" class="card v2">
     <div class="card-tag">Design V2 &nbsp;·&nbsp; Clean White Editorial</div>
-    <div class="card-title"><span class="arrow">→</span>Full-Bleed Hero — Annual Report Precision</div>
-    <div class="card-desc">Edge-to-edge full-width hero image, horizontal program table rows, Ken Burns zoom animation.</div>
+    <div class="card-title">
+      Full-Bleed Hero — Annual Report Precision
+      <span class="arrow">→</span>
+    </div>
+    <div class="card-desc">Edge-to-edge full-width hero image with Ken Burns animation, horizontal program table rows, pure white surface, count-up impact numbers.</div>
+    <hr class="divider"/>
+    <div class="why-label">Why this design works</div>
+    <ul class="why-list">
+      <li>The full-bleed hero photograph commands attention immediately — real faces from real worksites create instant emotional resonance before a single word is read, which drives lower bounce rates.</li>
+      <li>The program table layout (sector · name · duration · salary · employers) answers every question a prospective student has in one scannable row — reducing friction between interest and application.</li>
+      <li>Clean white with precise grid lines communicates operational maturity — the kind of professionalism that makes corporates comfortable listing GSLF as a CSR partner in their own annual reports.</li>
+      <li>The count-up animation on impact numbers creates a moment of delight that subtly reinforces scale — 20,000+ trained feels more real when you watch the number build up live.</li>
+    </ul>
+    <div class="audience-tag">Best for: Prospective students · Urban middle-class parents · Corporate HR teams · Media &amp; press</div>
   </a>
 
-  <a href="GSLF_Homepage_HiFi_v3.html" class="card">
+  <!-- V3 -->
+  <a href="GSLF_Homepage_HiFi_v3.html" class="card v3">
     <div class="card-tag">Design V3 &nbsp;·&nbsp; Human-First Contemporary</div>
-    <div class="card-title"><span class="arrow">→</span>Image-Dominant Hero — Bold Warm Modern</div>
-    <div class="card-desc">58% image-forward hero, program cards with thumbnails, horizontal timeline, multi-direction slide animations.</div>
+    <div class="card-title">
+      Image-Dominant Hero — Bold Warm Modern
+      <span class="arrow">→</span>
+    </div>
+    <div class="card-desc">58% image-forward asymmetric hero, program cards with photo thumbnails, horizontal 4-step timeline, multi-direction slide-in animations.</div>
+    <hr class="divider"/>
+    <div class="why-label">Why this design works</div>
+    <ul class="why-list">
+      <li>Leading with a large, warm photograph of a real young person rather than a headline first is proven to drive higher empathy and time-on-page — the audience sees themselves (or their child) before they read anything.</li>
+      <li>Program cards with image thumbnails help semi-literate or first-generation users navigate intuitively — the visual cue of a photo next to "Refrigeration Technician" lowers cognitive load significantly.</li>
+      <li>The horizontal 4-step journey timeline makes the path from enrolment to employment feel short, clear, and achievable — directly addressing the hesitation of students who fear the process is complicated.</li>
+      <li>Slide-in animations and hover interactions give the site a premium, app-like feel that builds trust with younger audiences who judge credibility by how modern something looks.</li>
+    </ul>
+    <div class="audience-tag">Best for: First-gen students · Rural &amp; semi-urban youth · Social media traffic · NGO award panels</div>
   </a>
 
   <footer>Prepared by Pratik Gade / PerfectSkills &nbsp;·&nbsp; Confidential — for GSLF review only</footer>
