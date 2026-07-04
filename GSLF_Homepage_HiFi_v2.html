@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GSLF — Every Young Person Deserves Work Worth Keeping.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+
+/* ══════════════════════════════════════════
+   DESIGN TOKENS — V2 "CLEAN WHITE EDITORIAL"
+══════════════════════════════════════════ */
+:root {
+  --white:      #FFFFFF;
+  --surface:    #F9F9F7;   /* very light warm gray — alt sections */
+  --ink:        #0F1A2E;
+  --navy:       #0D2B55;
+  --saffron:    #F59E0B;
+  --saffron-d:  #D97706;
+  --emerald:    #059669;
+  --emerald-l:  #D1FAE5;
+  --muted:      #6B7280;
+  --muted-l:    #9CA3AF;
+  --border:     #E5E7EB;
+  --rule:       #E5E7EB;
+
+  --f-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --f-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--f-body);
+  background: var(--white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--f-body); cursor: pointer; border: none; background: none; }
+img { display: block; }
+
+/* ══════════════════════════════════════════
+   TYPOGRAPHY PRIMITIVES
+══════════════════════════════════════════ */
+.eyebrow {
+  font-family: var(--f-body);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted-l);
+  display: block;
+}
+.display {
+  font-family: var(--f-display);
+  line-height: 1.08;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.body-copy {
+  font-size: 17px; line-height: 1.78;
+  color: var(--muted);
+}
+.text-link {
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  display: inline-flex; align-items: center; gap: 6px;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 1px;
+  transition: gap 0.2s var(--ease), opacity 0.2s;
+}
+.text-link:hover { gap: 12px; opacity: 0.7; }
+
+/* ══════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-body); font-size: 14px; font-weight: 700;
+  padding: 14px 28px;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease), background 0.15s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--saffron {
+  background: var(--saffron); color: var(--navy);
+}
+.btn--saffron:hover {
+  background: var(--saffron-d);
+  box-shadow: 0 8px 24px rgba(245,158,11,0.28);
+}
+.btn--white-outline {
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.35);
+}
+.btn--white-outline:hover { border-color: rgba(255,255,255,0.7); }
+.btn--navy-outline {
+  background: transparent; color: var(--navy);
+  border: 1.5px solid var(--navy);
+}
+.btn--navy-outline:hover { background: var(--navy); color: var(--white); }
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ══════════════════════════════════════════
+   01 — NAVIGATION
+══════════════════════════════════════════ */
+.nav {
+  position: sticky; top: 0; z-index: 300;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 72px;
+}
+.nav__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  height: 100%;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 40px;
+}
+.nav__logo {
+  display: flex; align-items: center; gap: 14px;
+  flex-shrink: 0; text-decoration: none;
+}
+.nav__mark {
+  width: 40px; height: 40px;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-size: 22px; color: var(--white);
+  font-weight: 400;
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+.nav__wordmark {
+  font-size: 15px; font-weight: 800; color: var(--ink);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.nav__wordmark span {
+  color: var(--muted); font-weight: 400; font-size: 11px;
+  display: block; margin-top: -1px; letter-spacing: 0.3px;
+  text-transform: none;
+}
+.nav__menu {
+  display: flex; gap: 0; flex: 1; justify-content: center;
+}
+.nav__menu a {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); padding: 8px 20px;
+  transition: color 0.15s;
+  letter-spacing: 0.1px;
+}
+.nav__menu a:hover { color: var(--ink); }
+.nav__right { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+.nav__lang { font-size: 12px; font-weight: 500; color: var(--muted-l); cursor: pointer; }
+.nav__donate {
+  background: var(--saffron); color: var(--navy);
+  font-size: 13px; font-weight: 700;
+  padding: 10px 24px;
+  transition: background 0.15s;
+  letter-spacing: 0.2px;
+}
+.nav__donate:hover { background: var(--saffron-d); }
+
+/* ══════════════════════════════════════════
+   02 — HERO (full-width image + editorial below)
+══════════════════════════════════════════ */
+
+/* Ken Burns keyframe */
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.03); }
+}
+
+.hero {}
+.hero__image-wrap {
+  width: 100%;
+  height: 62vh;
+  min-height: 440px;
+  position: relative;
+  overflow: hidden;
+  background: #0f1f38;
+}
+.hero__image-wrap img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  animation: kenBurns 8s ease-out forwards;
+  transform-origin: center center;
+}
+.hero__image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(10,20,40,0.18) 0%, rgba(10,20,40,0.32) 100%);
+}
+
+.hero__editorial {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.hero__editorial-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 52px 48px 56px;
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  gap: 64px;
+  align-items: start;
+}
+.hero__headline-col {}
+.hero__eyebrow { margin-bottom: 22px; }
+.hero__headline {
+  font-family: var(--f-display);
+  font-size: clamp(2.6rem, 4.4vw, 4.2rem);
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  max-width: 20ch;
+}
+.hero__sub-col {
+  padding-top: 8px;
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.hero__sub {
+  font-size: 17px; line-height: 1.78;
+  color: var(--muted);
+  max-width: 42ch;
+  margin-bottom: 32px;
+}
+.hero__cta-row { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
+
+.hero__trust {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  width: 100%;
+}
+.hero__trust-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted-l); margin-bottom: 12px;
+}
+.hero__trust-logos {
+  display: flex; gap: 0; flex-wrap: wrap;
+}
+.hero__trust-logos span {
+  font-size: 12px; font-weight: 700; color: var(--muted-l);
+  padding: 0 18px;
+  border-right: 1px solid var(--border);
+  letter-spacing: 0.5px;
+}
+.hero__trust-logos span:first-child { padding-left: 0; }
+.hero__trust-logos span:last-child { border-right: none; }
+
+/* ══════════════════════════════════════════
+   03 — MISSION
+══════════════════════════════════════════ */
+.mission {
+  background: var(--surface);
+  padding: 80px 48px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.mission__inner {
+  max-width: 800px; margin: 0 auto;
+  text-align: center;
+}
+.mission__eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--muted-l); margin-bottom: 28px; display: block;
+}
+.mission__text {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(1.55rem, 2.6vw, 2.35rem);
+  line-height: 1.5;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.mission__source {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  letter-spacing: 0.3px;
+}
+
+/* ══════════════════════════════════════════
+   04 — IMPACT NUMBERS (count-up)
+══════════════════════════════════════════ */
+.impact {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.impact__inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 72px 48px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.impact__item {
+  padding: 0 40px;
+  border-left: 1px solid var(--border);
+}
+.impact__item:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+.impact__item:last-child { padding-right: 0; }
+.impact__num {
+  font-family: var(--f-display);
+  font-size: clamp(2.8rem, 4.5vw, 4.8rem);
+  line-height: 1;
+  color: var(--emerald);
+  letter-spacing: -0.03em;
+  display: block;
+  margin-bottom: 12px;
+}
+.impact__suffix {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  color: var(--emerald);
+}
+.impact__label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted-l); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════
+   05 + 06 — THE WORK ROWS (62/38 split)
+══════════════════════════════════════════ */
+.work { background: var(--white); }
+.work__rows { border-top: 1px solid var(--border); }
+.work__row {
+  display: grid;
+  min-height: 520px;
+  border-bottom: 1px solid var(--border);
+}
+.work__row--img-left  { grid-template-columns: 62fr 38fr; }
+.work__row--img-right { grid-template-columns: 38fr 62fr; }
+
+.work__photo {
+  background: #0f1f38;
+  overflow: hidden; position: relative;
+}
+.work__photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.work__row:hover .work__photo img { transform: scale(1.03); }
+.work__photo-tag {
+  position: absolute; top: 28px; left: 28px; z-index: 2;
+  background: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink); padding: 7px 14px;
+}
+.work__text {
+  padding: 64px 64px;
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--white);
+}
+.work__row--img-right .work__text { order: -1; }
+.work__text .eyebrow { margin-bottom: 18px; }
+.work__text h3 {
+  font-family: var(--f-display);
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+  line-height: 1.18; color: var(--ink);
+  margin-bottom: 20px; max-width: 24ch;
+  letter-spacing: -0.015em;
+}
+.work__text .body-copy { max-width: 44ch; margin-bottom: 32px; }
+
+/* ══════════════════════════════════════════
+   07 — STUDENT JOURNEY
+══════════════════════════════════════════ */
+.journey {
+  background: var(--surface);
+  padding: 80px 0 0;
+  border-top: 1px solid var(--border);
+}
+.journey__header {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 48px 56px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+}
+.journey__header .display { font-size: clamp(1.8rem, 3vw, 2.8rem); max-width: 22ch; }
+.journey__header p { font-size: 15px; color: var(--muted); max-width: 36ch; line-height: 1.7; }
+.journey__list { border-top: 1px solid var(--border); }
+.journey__step {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.25s var(--ease);
+}
+.journey__step:hover { background: rgba(255,255,255,0.7); }
+.journey__step-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 96px 1fr 1.4fr;
+  gap: 48px; align-items: start;
+  position: relative;
+}
+/* Saffron vertical connecting line on number column */
+.journey__step-inner::before {
+  content: '';
+  position: absolute;
+  left: 48px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--saffron);
+  opacity: 0.22;
+}
+.journey__step:first-child .journey__step-inner::before { top: 24px; }
+.journey__step:last-child  .journey__step-inner::before { bottom: 24px; }
+.journey__num {
+  font-family: var(--f-display);
+  font-size: 4.8rem; line-height: 1;
+  color: var(--border);
+  letter-spacing: -0.04em;
+  position: relative; z-index: 1;
+}
+/* Active saffron num highlight on hover */
+.journey__step:hover .journey__num { color: rgba(245,158,11,0.18); }
+.journey__title {
+  font-family: var(--f-display);
+  font-size: clamp(1.3rem, 1.8vw, 1.85rem);
+  line-height: 1.2; color: var(--ink);
+  padding-top: 8px;
+  letter-spacing: -0.01em;
+}
+.journey__desc {
+  font-size: 15px; line-height: 1.75;
+  color: var(--muted); padding-top: 10px;
+}
+
+/* ══════════════════════════════════════════
+   08 — FEATURED PROGRAMS (table rows)
+══════════════════════════════════════════ */
+.programs {
+  background: var(--surface);
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+.programs__header {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 48px 40px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+}
+.programs__header .display { font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.programs__header a { font-size: 14px; font-weight: 600; color: var(--navy); }
+
+/* Table heading row */
+.programs__table {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+}
+.prog-table-head {
+  display: grid;
+  grid-template-columns: 120px 1fr 90px 100px 1fr 80px;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 2px solid var(--ink);
+  padding: 10px 0;
+}
+.prog-table-head span {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted-l); padding: 0 16px 0 0;
+}
+.prog-table-head span:last-child { text-align: right; padding-right: 0; }
+
+/* Program row — slides in from left */
+.prog-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 90px 100px 1fr 80px;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  align-items: center;
+  padding: 22px 0;
+  transition: background 0.18s var(--ease);
+  background: var(--surface);
+  /* Slide-in-from-left reveal */
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), background 0.18s var(--ease);
+}
+.prog-row.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.prog-row:hover { background: var(--white); }
+.prog-row__sector {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--emerald);
+  padding-right: 16px;
+}
+.prog-row__name {
+  font-family: var(--f-display);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.25; color: var(--ink);
+  padding-right: 24px;
+  letter-spacing: -0.01em;
+}
+.prog-row__duration {
+  font-size: 13px; color: var(--muted);
+  padding-right: 16px;
+}
+.prog-row__salary {
+  font-family: var(--f-display);
+  font-size: 1.15rem; color: var(--emerald);
+  padding-right: 16px;
+  letter-spacing: -0.01em;
+}
+.prog-row__employers {
+  font-size: 12px; color: var(--muted-l);
+  line-height: 1.5;
+  padding-right: 16px;
+}
+.prog-row__cta {
+  text-align: right;
+}
+.prog-row__cta a {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  border-bottom: 1.5px solid var(--navy);
+  padding-bottom: 1px;
+  transition: opacity 0.15s;
+}
+.prog-row__cta a:hover { opacity: 0.6; }
+
+/* ══════════════════════════════════════════
+   09 — STORY FEATURE
+   Left 55%: pull-quote + person
+   Right 45%: square image + salary data below
+══════════════════════════════════════════ */
+.story-feature {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.story-feature__inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 80px 48px;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: 80px;
+  align-items: start;
+}
+.story-feature__left {}
+.story-feature__eyebrow { margin-bottom: 32px; }
+.story-feature__quote {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.52; color: var(--ink);
+  margin-bottom: 32px;
+  padding-left: 28px;
+  border-left: 3px solid var(--saffron);
+  letter-spacing: -0.01em;
+}
+.story-feature__person-name {
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  margin-bottom: 4px;
+}
+.story-feature__person-role {
+  font-size: 13px; color: var(--muted);
+  line-height: 1.5;
+}
+
+.story-feature__right {}
+.story-feature__photo-wrap {
+  aspect-ratio: 1 / 1;
+  position: relative; overflow: hidden;
+  background: #1a2c45;
+  margin-bottom: 0;
+}
+.story-feature__photo-wrap img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.story-feature__salary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+.story-feature__sal {
+  padding: 20px 24px;
+}
+.story-feature__sal + .story-feature__sal {
+  border-left: 1px solid var(--border);
+}
+.story-feature__sal-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted-l); margin-bottom: 6px;
+}
+.story-feature__sal-val {
+  font-family: var(--f-display);
+  font-size: 2.1rem; line-height: 1; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.story-feature__sal--before .story-feature__sal-val { color: var(--muted-l); }
+.story-feature__sal--after  .story-feature__sal-val { color: var(--emerald); }
+.story-feature__sal-sub { font-size: 11px; color: var(--muted-l); }
+
+/* ══════════════════════════════════════════
+   10 — PARTNERS
+══════════════════════════════════════════ */
+.partners {
+  background: var(--surface);
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+.partners__header {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 48px 40px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+}
+.partners__header h2 {
+  font-family: var(--f-display);
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  line-height: 1.15; max-width: 28ch;
+  letter-spacing: -0.015em;
+}
+.partners__header p { font-size: 14px; color: var(--muted); max-width: 36ch; line-height: 1.7; }
+.logo-grid {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.logo-cell {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 88px;
+  display: flex; align-items: center; justify-content: center; padding: 0 24px;
+  transition: background 0.2s;
+  background: var(--surface);
+}
+.logo-cell:hover { background: var(--white); }
+.logo-cell__name {
+  font-size: 14px; font-weight: 700;
+  color: #C4C9D4;
+  letter-spacing: 0.5px;
+}
+.logo-cell--more .logo-cell__name {
+  font-size: 12px; color: var(--muted-l);
+  font-weight: 500; letter-spacing: 0;
+}
+
+/* ══════════════════════════════════════════
+   11 — FOR EMPLOYERS
+══════════════════════════════════════════ */
+.hire {
+  background: var(--white);
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+.hire__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+.hire__eyebrow { margin-bottom: 16px; }
+.hire__headline {
+  font-family: var(--f-display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.15; color: var(--ink);
+  margin-bottom: 20px; max-width: 22ch;
+  letter-spacing: -0.015em;
+}
+.hire__body { max-width: 46ch; margin-bottom: 36px; }
+.hire__cta-row { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
+.hire__stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.hire__stat { background: var(--white); padding: 24px; }
+.hire__stat-val {
+  font-family: var(--f-display);
+  font-size: 2.4rem; line-height: 1; color: var(--emerald);
+  margin-bottom: 6px; letter-spacing: -0.02em;
+}
+.hire__stat-label { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.hire__process {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.hire__process-head {
+  padding: 16px 24px;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted-l); border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.hire__step {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 36px 1fr;
+  gap: 16px; align-items: start;
+}
+.hire__step:last-child { border-bottom: none; }
+.hire__step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hire__step-title {
+  font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
+}
+.hire__step-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ══════════════════════════════════════════
+   12 — NEWSLETTER + SUPPORT
+══════════════════════════════════════════ */
+.newsletter {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 0;
+}
+.newsletter__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+.newsletter__eyebrow { margin-bottom: 16px; }
+.newsletter__headline {
+  font-family: var(--f-display);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  line-height: 1.2; color: var(--ink);
+  margin-bottom: 12px; letter-spacing: -0.015em;
+}
+.newsletter__sub { font-size: 15px; color: var(--muted); line-height: 1.7; }
+.newsletter__form { display: flex; flex-direction: column; gap: 12px; }
+.newsletter__input-row { display: flex; gap: 0; }
+.newsletter__input {
+  flex: 1;
+  border: 1px solid var(--border); border-right: none;
+  padding: 13px 20px;
+  font-family: var(--f-body); font-size: 14px; color: var(--ink);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.newsletter__input:focus { border-color: var(--navy); }
+.newsletter__input::placeholder { color: var(--muted-l); }
+.newsletter__submit {
+  padding: 13px 24px;
+  background: var(--navy); color: var(--white);
+  font-family: var(--f-body); font-size: 13px; font-weight: 700;
+  border: 1px solid var(--navy);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.newsletter__submit:hover { background: #0a2347; }
+.newsletter__consent {
+  font-size: 11px; color: var(--muted-l); line-height: 1.6;
+}
+
+.support {
+  background: var(--navy);
+  padding: 72px 48px;
+  text-align: center;
+}
+.support__eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 20px; display: block;
+}
+.support__headline {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  line-height: 1.15; color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  max-width: 26ch;
+  margin-left: auto; margin-right: auto;
+}
+.support__sub {
+  font-size: 16px; color: rgba(255,255,255,0.6);
+  max-width: 44ch; margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.support__cta-row {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+}
+
+/* ══════════════════════════════════════════
+   13 — FOOTER
+══════════════════════════════════════════ */
+.footer {
+  background: #0A1B33;
+  color: var(--white);
+  padding: 72px 0 0;
+}
+.footer__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  display: grid;
+  grid-template-columns: 280px 1fr 1fr 1fr;
+  gap: 64px;
+  padding-bottom: 56px;
+}
+.footer__brand {}
+.footer__logo {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+}
+.footer__mark {
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-size: 20px; color: var(--white);
+}
+.footer__wordmark {
+  font-size: 14px; font-weight: 800;
+  color: var(--white); letter-spacing: 0.8px; text-transform: uppercase;
+}
+.footer__tagline {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  line-height: 1.7; margin-bottom: 20px;
+}
+.footer__disclosure {
+  font-size: 11px; color: rgba(255,255,255,0.25);
+  line-height: 1.7; margin-bottom: 24px;
+}
+.footer__social { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer__social a {
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
+}
+.footer__social a:hover { color: rgba(255,255,255,0.7); }
+
+.footer__col-head {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); margin-bottom: 20px;
+}
+.footer__col-links { display: flex; flex-direction: column; gap: 10px; }
+.footer__col-links a {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  transition: color 0.15s;
+}
+.footer__col-links a:hover { color: var(--white); }
+
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 20px 48px;
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.footer__legal {
+  font-size: 12px; color: rgba(255,255,255,0.25);
+  line-height: 1.6;
+}
+.footer__legal-links { display: flex; gap: 20px; }
+.footer__legal-links a {
+  font-size: 12px; color: rgba(255,255,255,0.3);
+  transition: color 0.15s;
+}
+.footer__legal-links a:hover { color: rgba(255,255,255,0.6); }
+
+/* Wrapper forces footer bottom bar to use full width */
+.footer__bottom-wrap {
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.footer__bottom-wrap .footer__bottom {
+  border-top: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     01 — NAVIGATION
+══════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo" aria-label="GSLF Home">
+      <div class="nav__mark" aria-hidden="true">G</div>
+      <div>
+        <div class="nav__wordmark">GSLF<span>Growing Skills · Transforming Lives</span></div>
+      </div>
+    </a>
+    <div class="nav__menu" role="list">
+      <a href="#programs" role="listitem">Programs</a>
+      <a href="#journey"  role="listitem">Our Work</a>
+      <a href="#impact"   role="listitem">Impact</a>
+      <a href="#story"    role="listitem">Stories</a>
+      <a href="#employers" role="listitem">For Employers</a>
+      <a href="#about"    role="listitem">About</a>
+    </div>
+    <div class="nav__right">
+      <span class="nav__lang" aria-label="Switch language">हिंदी</span>
+      <a href="#donate" class="btn nav__donate">Donate</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     02 — HERO
+══════════════════════════════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero__image-wrap" role="img" aria-label="Skilled young workers in a training environment">
+    <img
+      src="https://images.pexels.com/photos/33925031/pexels-photo-33925031.jpeg?auto=compress&cs=tinysrgb&w=1920&h=700&fit=crop&q=85"
+      alt="Young skilled workers in a professional training environment"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero__image-overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__editorial">
+    <div class="hero__editorial-inner">
+      <div class="hero__headline-col reveal">
+        <span class="eyebrow hero__eyebrow">Founded 2012 &nbsp;·&nbsp; 12 States &nbsp;·&nbsp; India</span>
+        <h1 class="hero__headline display">
+          Every young person in India deserves work worth keeping.
+        </h1>
+      </div>
+      <div class="hero__sub-col reveal reveal-delay-2">
+        <p class="hero__sub">
+          GSLF trains India's emerging workforce in high-demand vocational skills — and stays with them until they have a job, a salary, and a career worth building on.
+        </p>
+        <div class="hero__cta-row">
+          <a href="#programs" class="btn btn--saffron">Explore Programs ↗</a>
+          <a href="#story" class="text-link">Read a student story →</a>
+        </div>
+        <div class="hero__trust">
+          <p class="hero__trust-label">Recognised by</p>
+          <div class="hero__trust-logos">
+            <span>NSDC</span>
+            <span>Skill India</span>
+            <span>NCVET</span>
+            <span>FCRA Registered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     03 — MISSION
+══════════════════════════════════════ -->
+<section class="mission" id="mission" aria-label="Mission statement">
+  <div class="mission__inner reveal">
+    <span class="mission__eyebrow">Our Belief</span>
+    <p class="mission__text">
+      "Skill is the most powerful currency a young person can own — and no one should be priced out of earning it."
+    </p>
+    <p class="mission__source">— GSLF Mission Statement</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     04 — IMPACT NUMBERS
+══════════════════════════════════════ -->
+<section class="impact" id="impact" aria-label="Impact numbers">
+  <div class="impact__inner">
+    <div class="impact__item reveal">
+      <span class="impact__num" data-target="20000" data-suffix="+">0</span>
+      <p class="impact__label">Students<br>Trained</p>
+    </div>
+    <div class="impact__item reveal reveal-delay-1">
+      <span class="impact__num" data-target="16000" data-suffix="+">0</span>
+      <p class="impact__label">Placed in<br>Jobs</p>
+    </div>
+    <div class="impact__item reveal reveal-delay-2">
+      <span class="impact__num" data-target="60" data-suffix="+">0</span>
+      <p class="impact__label">Training<br>Centres</p>
+    </div>
+    <div class="impact__item reveal reveal-delay-3">
+      <span class="impact__num" data-target="100" data-suffix="+">0</span>
+      <p class="impact__label">Employer<br>Partners</p>
+    </div>
+    <div class="impact__item reveal reveal-delay-4">
+      <span class="impact__num" data-target="12" data-suffix="+">0</span>
+      <p class="impact__label">States<br>Active</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     05 — WORK ROW 1 (62% image left)
+══════════════════════════════════════ -->
+<section class="work" id="work" aria-label="Our training work">
+  <div class="work__rows">
+    <div class="work__row work__row--img-left">
+      <div class="work__photo">
+        <img
+          src="https://images.pexels.com/photos/6471913/pexels-photo-6471913.jpeg?auto=compress&cs=tinysrgb&w=1400&h=900&fit=crop&q=80"
+          alt="Hands-on HVAC technician training in a vocational centre"
+          loading="lazy"
+        />
+        <div class="work__photo-tag">Training</div>
+      </div>
+      <div class="work__text reveal">
+        <span class="eyebrow">Sector-Specific Training</span>
+        <h3>Hands-on learning designed with the employers who will hire you.</h3>
+        <p class="body-copy">
+          Every GSLF curriculum is co-designed with industry — so graduates arrive day-one ready. We train in HVAC, EV technology, optical fibre, healthcare, retail, and 14 more high-demand sectors.
+        </p>
+        <a href="#programs" class="text-link">Explore all 18 programs →</a>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         06 — WORK ROW 2 (62% image right)
+    ══════════════════════════════════════ -->
+    <div class="work__row work__row--img-right">
+      <div class="work__text reveal">
+        <span class="eyebrow">Placement Cell</span>
+        <h3>We don't stop until every graduate has an offer.</h3>
+        <p class="body-copy">
+          Our dedicated placement team maintains live relationships with 100+ employers. We schedule interviews, negotiate offers, and track every graduate for six months post-placement to ensure the job sticks.
+        </p>
+        <a href="#employers" class="text-link">Partner with us as an employer →</a>
+      </div>
+      <div class="work__photo">
+        <img
+          src="https://images.pexels.com/photos/7581113/pexels-photo-7581113.jpeg?auto=compress&cs=tinysrgb&w=1400&h=900&fit=crop&q=80"
+          alt="A placed graduate in a professional office environment"
+          loading="lazy"
+        />
+        <div class="work__photo-tag">Placement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     07 — STUDENT JOURNEY
+══════════════════════════════════════ -->
+<section class="journey" id="journey" aria-label="Student journey steps">
+  <div class="journey__header">
+    <h2 class="display reveal">From enrolment to employment in 90 days.</h2>
+    <p class="reveal reveal-delay-2">
+      A structured, support-intensive process that leaves nothing to chance — from the first aptitude test to the first salary slip.
+    </p>
+  </div>
+  <ol class="journey__list">
+    <li class="journey__step reveal">
+      <div class="journey__step-inner">
+        <span class="journey__num" aria-hidden="true">01</span>
+        <h3 class="journey__title">Assessment &amp; Enrolment</h3>
+        <p class="journey__desc">
+          We run free aptitude and interest assessments at community level — in schools, ration shops, and gram panchayat offices. Every student who qualifies gets a scholarship covering 100% of tuition.
+        </p>
+      </div>
+    </li>
+    <li class="journey__step reveal">
+      <div class="journey__step-inner">
+        <span class="journey__num" aria-hidden="true">02</span>
+        <h3 class="journey__title">Sector Training (45–60 days)</h3>
+        <p class="journey__desc">
+          Hands-on, employer-aligned training at one of 60 GSLF centres. Industry-certified trainers. Real tools. Soft-skills and English communication woven in throughout. NSQF-aligned certifications issued on completion.
+        </p>
+      </div>
+    </li>
+    <li class="journey__step reveal">
+      <div class="journey__step-inner">
+        <span class="journey__num" aria-hidden="true">03</span>
+        <h3 class="journey__title">Placement Preparation (10 days)</h3>
+        <p class="journey__desc">
+          Resume building, mock interviews with real hiring managers, workplace etiquette, and financial literacy. We simulate the actual hiring process so students walk in confident.
+        </p>
+      </div>
+    </li>
+    <li class="journey__step reveal">
+      <div class="journey__step-inner">
+        <span class="journey__num" aria-hidden="true">04</span>
+        <h3 class="journey__title">Job Placement &amp; 6-Month Follow-up</h3>
+        <p class="journey__desc">
+          Direct placement with 100+ employer partners. Our placement cell stays in touch with every graduate — resolving disputes, providing career guidance, and tracking retention. 82% are still employed at the six-month mark.
+        </p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════════════════════════════════
+     08 — FEATURED PROGRAMS (table rows)
+══════════════════════════════════════ -->
+<section class="programs" id="programs" aria-label="Featured programs">
+  <div class="programs__header">
+    <h2 class="display reveal">Featured Programs</h2>
+    <a href="#" class="text-link reveal reveal-delay-2">View all 18 programs →</a>
+  </div>
+  <div class="programs__table" role="table" aria-label="Program listing">
+    <div class="prog-table-head" role="row" aria-hidden="true">
+      <span>Sector</span>
+      <span>Course Name</span>
+      <span>Duration</span>
+      <span>Avg. Salary</span>
+      <span>Hiring Employers</span>
+      <span></span>
+    </div>
+
+    <div class="prog-row" role="row" aria-label="RACW Technician program">
+      <div class="prog-row__sector" role="cell">HVAC</div>
+      <div class="prog-row__name" role="cell">Refrigeration &amp; Air-Conditioning Technician</div>
+      <div class="prog-row__duration" role="cell">45 days</div>
+      <div class="prog-row__salary" role="cell">₹18,000 /mo</div>
+      <div class="prog-row__employers" role="cell">Blue Star, Voltas, Daikin, Carrier</div>
+      <div class="prog-row__cta" role="cell"><a href="#" aria-label="Apply for RACW Technician">Apply →</a></div>
+    </div>
+
+    <div class="prog-row" role="row" aria-label="EV Technician program">
+      <div class="prog-row__sector" role="cell">Automotive</div>
+      <div class="prog-row__name" role="cell">Electric Vehicle Service Technician</div>
+      <div class="prog-row__duration" role="cell">60 days</div>
+      <div class="prog-row__salary" role="cell">₹22,000 /mo</div>
+      <div class="prog-row__employers" role="cell">Ola Electric, Ather, Hero Electric, Tata Motors</div>
+      <div class="prog-row__cta" role="cell"><a href="#" aria-label="Apply for EV Technician">Apply →</a></div>
+    </div>
+
+    <div class="prog-row" role="row" aria-label="Optical Fiber Technician program">
+      <div class="prog-row__sector" role="cell">Telecom</div>
+      <div class="prog-row__name" role="cell">Optical Fiber Network Technician</div>
+      <div class="prog-row__duration" role="cell">45 days</div>
+      <div class="prog-row__salary" role="cell">₹20,000 /mo</div>
+      <div class="prog-row__employers" role="cell">Jio, BSNL, Sterlite, Bharti Infratel</div>
+      <div class="prog-row__cta" role="cell"><a href="#" aria-label="Apply for Optical Fiber Technician">Apply →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     09 — STORY FEATURE
+══════════════════════════════════════ -->
+<section class="story-feature" id="story" aria-label="Impact story">
+  <div class="story-feature__inner">
+    <!-- LEFT: pull-quote + person -->
+    <div class="story-feature__left reveal">
+      <span class="eyebrow story-feature__eyebrow">Graduate Story</span>
+      <blockquote class="story-feature__quote">
+        "Before GSLF I had no idea what I was qualified for. Sixty days later I had a job offer from Voltas — at three times what my father earns as a daily labourer."
+      </blockquote>
+      <p class="story-feature__person-name">Kavitha Reddy</p>
+      <p class="story-feature__person-role">RACW Technician Graduate, Batch 2023<br>Currently: Service Engineer, Voltas Ltd., Hyderabad</p>
+    </div>
+
+    <!-- RIGHT: square image + before/after salary -->
+    <div class="story-feature__right reveal reveal-delay-2">
+      <div class="story-feature__photo-wrap" role="img" aria-label="Portrait of Kavitha Reddy, GSLF graduate">
+        <img
+          src="https://images.pexels.com/photos/7580822/pexels-photo-7580822.jpeg?auto=compress&cs=tinysrgb&w=700&h=700&fit=crop&q=80"
+          alt="Kavitha Reddy, GSLF RACW graduate, in her work uniform"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-feature__salary-row" aria-label="Before and after salary comparison">
+        <div class="story-feature__sal story-feature__sal--before">
+          <p class="story-feature__sal-label">Before GSLF</p>
+          <p class="story-feature__sal-val">₹4,500</p>
+          <p class="story-feature__sal-sub">per month — informal labour</p>
+        </div>
+        <div class="story-feature__sal story-feature__sal--after">
+          <p class="story-feature__sal-label">After GSLF</p>
+          <p class="story-feature__sal-val">₹18,000</p>
+          <p class="story-feature__sal-sub">per month — Voltas Ltd. CTC</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     10 — EMPLOYER PARTNERS
+══════════════════════════════════════ -->
+<section class="partners" id="partners" aria-label="Employer partners">
+  <div class="partners__header">
+    <h2 class="reveal">Trusted by 100+ of India's leading employers.</h2>
+    <p class="reveal reveal-delay-2">From FMCG giants to EV startups, our hiring partners count on GSLF for pre-vetted, job-ready talent.</p>
+  </div>
+  <div class="logo-grid" aria-label="Employer partner logos" role="list">
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Blue Star</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Voltas</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Daikin</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Ola Electric</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Ather</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Tata Motors</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Jio</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">BSNL</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Carrier</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Hero Electric</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Wipro Infra</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Sterlite</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Havells</span></div>
+    <div class="logo-cell" role="listitem"><span class="logo-cell__name">Bosch</span></div>
+    <div class="logo-cell logo-cell--more" role="listitem"><span class="logo-cell__name">+86 more employers</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     11 — FOR EMPLOYERS
+══════════════════════════════════════ -->
+<section class="hire" id="employers" aria-label="Information for employers">
+  <div class="hire__inner">
+    <div>
+      <span class="eyebrow hire__eyebrow reveal">For Employers</span>
+      <h2 class="hire__headline reveal reveal-delay-1">A talent pipeline built around your actual requirements.</h2>
+      <p class="body-copy hire__body reveal reveal-delay-2">
+        Tell us the skills, certifications, and attitude you need — and we'll train directly to that spec. No bulk-hire awkwardness. No CV lottery. Just graduates who are ready, retained, and productive.
+      </p>
+      <div class="hire__cta-row reveal reveal-delay-3">
+        <a href="#" class="btn btn--saffron">Partner with GSLF</a>
+        <a href="#" class="text-link">Download employer brochure →</a>
+      </div>
+      <div class="hire__stats reveal reveal-delay-4">
+        <div class="hire__stat">
+          <p class="hire__stat-val">82%</p>
+          <p class="hire__stat-label">6-month retention rate across all partners</p>
+        </div>
+        <div class="hire__stat">
+          <p class="hire__stat-val">14 days</p>
+          <p class="hire__stat-label">Average time from request to first placement</p>
+        </div>
+        <div class="hire__stat">
+          <p class="hire__stat-val">18 sectors</p>
+          <p class="hire__stat-label">Active training tracks available immediately</p>
+        </div>
+        <div class="hire__stat">
+          <p class="hire__stat-val">Zero</p>
+          <p class="hire__stat-label">Cost to the employer for standard placement</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hire__process reveal reveal-delay-2">
+      <div class="hire__process-head">How Employer Partnership Works</div>
+      <div class="hire__step">
+        <div class="hire__step-num" aria-hidden="true">1</div>
+        <div>
+          <p class="hire__step-title">Submit a talent requirement</p>
+          <p class="hire__step-body">Share the roles, skills, location, and volume you need. We match it against current batches or schedule a dedicated cohort.</p>
+        </div>
+      </div>
+      <div class="hire__step">
+        <div class="hire__step-num" aria-hidden="true">2</div>
+        <div>
+          <p class="hire__step-title">Co-design the training module</p>
+          <p class="hire__step-body">Our curriculum team works with your L&amp;D leads to embed your tools, protocols, and SOPs directly into the training.</p>
+        </div>
+      </div>
+      <div class="hire__step">
+        <div class="hire__step-num" aria-hidden="true">3</div>
+        <div>
+          <p class="hire__step-title">Interview &amp; select at GSLF centres</p>
+          <p class="hire__step-body">Conduct campus-style drives at our training centres. Pre-screened graduates, structured interview slots, zero logistics overhead for your HR team.</p>
+        </div>
+      </div>
+      <div class="hire__step">
+        <div class="hire__step-num" aria-hidden="true">4</div>
+        <div>
+          <p class="hire__step-title">Post-placement support</p>
+          <p class="hire__step-body">GSLF placement officers track every hire for six months, resolving early-stage friction before it becomes attrition.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     12 — NEWSLETTER + SUPPORT
+══════════════════════════════════════ -->
+<section class="newsletter" aria-label="Newsletter signup">
+  <div class="newsletter__inner">
+    <div class="reveal">
+      <span class="eyebrow newsletter__eyebrow">Stay Informed</span>
+      <h2 class="newsletter__headline">Impact updates, straight to your inbox.</h2>
+      <p class="newsletter__sub">Quarterly reports, new program launches, and the occasional graduate story — no noise, no marketing.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <form class="newsletter__form" action="#" method="post" onsubmit="return false;" aria-label="Newsletter signup form">
+        <div class="newsletter__input-row">
+          <input
+            type="email"
+            class="newsletter__input"
+            placeholder="your@email.com"
+            aria-label="Email address"
+            required
+          />
+          <button type="submit" class="newsletter__submit">Subscribe</button>
+        </div>
+        <p class="newsletter__consent">We respect your privacy. One email per quarter, max. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="support" id="donate" aria-label="Donate and support GSLF">
+  <span class="support__eyebrow reveal">Make a Difference</span>
+  <h2 class="support__headline reveal reveal-delay-1">One donation. One young person. One career that changes a family.</h2>
+  <p class="support__sub reveal reveal-delay-2">
+    ₹6,500 covers the full training cost for one student — scholarship, materials, assessment, and placement support included.
+  </p>
+  <div class="support__cta-row reveal reveal-delay-3">
+    <a href="#" class="btn btn--saffron">Sponsor a Student — ₹6,500</a>
+    <a href="#" class="btn btn--white-outline">Explore CSR Partnership</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     13 — FOOTER
+══════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <div class="footer__mark" aria-hidden="true">G</div>
+        <span class="footer__wordmark">GSLF</span>
+      </div>
+      <p class="footer__tagline">Growing Skills. Transforming Lives.<br>Empowering India's workforce since 2012.</p>
+      <p class="footer__disclosure">
+        GSLF (Growing Skills Life Foundation) is a registered non-profit under the Societies Registration Act, 1860. FCRA registered. 80G tax exemption available for Indian donors. CIN: U85300MH2012NPL231xxx.
+      </p>
+      <nav class="footer__social" aria-label="Social media links">
+        <a href="#" rel="noopener">LinkedIn</a>
+        <a href="#" rel="noopener">Twitter / X</a>
+        <a href="#" rel="noopener">Facebook</a>
+        <a href="#" rel="noopener">YouTube</a>
+        <a href="#" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+
+    <div>
+      <p class="footer__col-head">Programs</p>
+      <nav class="footer__col-links" aria-label="Programs navigation">
+        <a href="#">HVAC &amp; Refrigeration</a>
+        <a href="#">Electric Vehicle Tech</a>
+        <a href="#">Optical Fiber</a>
+        <a href="#">Healthcare &amp; Nursing Aid</a>
+        <a href="#">Retail &amp; Customer Service</a>
+        <a href="#">View All 18 Programs</a>
+      </nav>
+    </div>
+
+    <div>
+      <p class="footer__col-head">Organisation</p>
+      <nav class="footer__col-links" aria-label="Organisation navigation">
+        <a href="#">About GSLF</a>
+        <a href="#">Our Model</a>
+        <a href="#">Leadership Team</a>
+        <a href="#">Annual Reports</a>
+        <a href="#">Press &amp; Media</a>
+        <a href="#">Careers at GSLF</a>
+      </nav>
+    </div>
+
+    <div>
+      <p class="footer__col-head">Get Involved</p>
+      <nav class="footer__col-links" aria-label="Get involved navigation">
+        <a href="#">Donate</a>
+        <a href="#">CSR &amp; Grants</a>
+        <a href="#">Hire Our Graduates</a>
+        <a href="#">Volunteer</a>
+        <a href="#">Referral Partner</a>
+        <a href="#">Contact Us</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="footer__bottom-wrap">
+    <div class="footer__bottom" style="max-width:1200px;margin:0 auto;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <p class="footer__legal">© 2024 Growing Skills Life Foundation. All rights reserved. India.</p>
+      <nav class="footer__legal-links" aria-label="Legal links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Donor Policy</a>
+        <a href="#">Accessibility</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT — Animations
+══════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ─── 1. Scroll Reveal ─────────────────── */
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+  /* ─── 2. Program Row Slide-in ─────────── */
+  const progObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // stagger using index
+          const rows = Array.from(document.querySelectorAll('.prog-row'));
+          const idx  = rows.indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, idx * 110);
+          progObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.prog-row').forEach((el) => progObserver.observe(el));
+
+  /* ─── 3. Count-up Animation ───────────── */
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCount(el) {
+    const target   = parseInt(el.getAttribute('data-target'), 10);
+    const suffix   = el.getAttribute('data-suffix') || '';
+    const duration = 1800; // ms
+    let startTime  = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed  = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased    = easeOutCubic(progress);
+      const current  = Math.round(eased * target);
+
+      el.textContent = current.toLocaleString('en-IN') + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target.toLocaleString('en-IN') + suffix;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  document.querySelectorAll('[data-target]').forEach((el) => countObserver.observe(el));
+
+  /* ─── 4. Nav shrink on scroll ─────────── */
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav.style.boxShadow = '0 2px 12px rgba(15,26,46,0.08)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  }, { passive: true });
+
+})();
+</script>
+</body>
+</html>
