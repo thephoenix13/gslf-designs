@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GSLF Meeting — Talking Points & Brief</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f4f6f9;
+    color: #1a1a2e;
+    line-height: 1.65;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: #fff;
+    padding: 48px 60px 36px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: #e94560;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .header h1 { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
+  .header .sub { font-size: 15px; color: #a8b2d8; margin-bottom: 20px; }
+  .meta-row { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 16px; }
+  .meta-item { font-size: 13px; color: #c9d1e9; }
+  .meta-item strong { color: #fff; display: block; font-size: 14px; }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px; }
+
+  /* SECTION CARD */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 5px solid #0f3460;
+  }
+  .card.red    { border-left-color: #e94560; }
+  .card.green  { border-left-color: #0abf77; }
+  .card.amber  { border-left-color: #f59e0b; }
+  .card.purple { border-left-color: #7c3aed; }
+  .card.blue   { border-left-color: #2563eb; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #6b7280;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #1a1a2e;
+  }
+
+  /* BRIEF GRID */
+  .brief-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .brief-tile {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 16px 18px;
+    border: 1px solid #e5e7eb;
+  }
+  .brief-tile .label { font-size: 11px; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .brief-tile .value { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+
+  /* TALKING POINTS */
+  .tp-list { list-style: none; }
+  .tp-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f3f5;
+  }
+  .tp-list li:last-child { border-bottom: none; }
+  .tp-num {
+    background: #0f3460;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card.red    .tp-num { background: #e94560; }
+  .card.green  .tp-num { background: #0abf77; }
+  .card.amber  .tp-num { background: #f59e0b; }
+  .card.purple .tp-num { background: #7c3aed; }
+  .card.blue   .tp-num { background: #2563eb; }
+  .tp-text strong { display: block; font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+  .tp-text span { font-size: 13.5px; color: #4b5563; }
+
+  /* QUESTIONS */
+  .q-list { list-style: none; }
+  .q-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f3f5;
+  }
+  .q-list li:last-child { border-bottom: none; }
+  .q-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-text strong { display: block; font-size: 13.5px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+  .q-text span { font-size: 13px; color: #6b7280; }
+
+  /* RISKS */
+  .risk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .risk-tile {
+    background: #fff8f0;
+    border: 1px solid #fcd9a0;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .risk-tile .risk-label { font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 5px; }
+  .risk-tile p { font-size: 13px; color: #78350f; }
+
+  /* POSITIONING */
+  .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pos-box {
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .pos-box.do { background: #f0fdf4; border: 1px solid #86efac; }
+  .pos-box.dont { background: #fff1f2; border: 1px solid #fda4af; }
+  .pos-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .pos-box.do h4 { color: #15803d; }
+  .pos-box.dont h4 { color: #be123c; }
+  .pos-box ul { padding-left: 16px; font-size: 13px; color: #374151; }
+  .pos-box ul li { margin-bottom: 6px; }
+
+  /* CLOSE */
+  .close-steps { display: flex; gap: 14px; flex-wrap: wrap; }
+  .close-step {
+    flex: 1;
+    min-width: 180px;
+    background: #f0f4ff;
+    border-radius: 10px;
+    padding: 16px 18px;
+    border: 1px solid #c7d2fe;
+  }
+  .close-step .step-n { font-size: 11px; font-weight: 700; color: #4f46e5; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .close-step p { font-size: 13px; color: #1e1b4b; font-weight: 600; }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; }
+    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card { box-shadow: none; border: 1px solid #e5e7eb; page-break-inside: avoid; }
+  }
+
+  @media (max-width: 640px) {
+    .header { padding: 32px 24px 24px; }
+    .container { padding: 24px 16px 60px; }
+    .card { padding: 22px 20px; }
+    .pos-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="badge">Confidential — Internal Use Only</div>
+  <h1>GSLF Website Redesign</h1>
+  <div class="sub">Meeting Brief &amp; Talking Points — Product Owner / Consultant Lens</div>
+  <div class="meta-row">
+    <div class="meta-item"><strong>Prospect</strong>GSLF — gslfoundation.org</div>
+    <div class="meta-item"><strong>Contact</strong>Devjit Gupta, CTO — dgupta@gslfoundation.org</div>
+    <div class="meta-item"><strong>BRD Version</strong>v2.1, June 2026</div>
+    <div class="meta-item"><strong>Engagement Type</strong>Full Website Redesign</div>
+    <div class="meta-item"><strong>Prepared</strong>July 3, 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- BRIEF -->
+  <div class="card">
+    <div class="section-label">Situation Brief</div>
+    <h2>Who is GSLF &amp; What Do They Need?</h2>
+    <p style="font-size:14px;color:#4b5563;margin-bottom:20px;">
+      GSLF (Gram Swaraj Laghu Finance / skill-sector NGO) runs 400+ vocational skill centres across 12+ states, has trained <strong>20,000+ students</strong> and placed <strong>16,000+</strong>. Their current website is a 2019-era brochure with Lorem Ipsum still live. The BRD — commissioned after a competitive review of Pratham.org and QuestAlliance.net — calls for a full redesign that repositions GSLF as a <em>Skill-to-Employment Platform</em>, not just an NGO. They have a for-profit arm <strong>FGSPL</strong> that must be co-represented carefully.
+    </p>
+    <div class="brief-grid">
+      <div class="brief-tile"><div class="label">Students Trained</div><div class="value">20,000+</div></div>
+      <div class="brief-tile"><div class="label">Placed in Jobs</div><div class="value">16,000+</div></div>
+      <div class="brief-tile"><div class="label">Active Centres</div><div class="value">400+ / 12 States</div></div>
+      <div class="brief-tile"><div class="label">Labs</div><div class="value">60+</div></div>
+      <div class="brief-tile"><div class="label">Corporate Partners</div><div class="value">100+</div></div>
+      <div class="brief-tile"><div class="label">BRD Priority</div><div class="value">HIGH</div></div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC CONTEXT -->
+  <div class="card blue">
+    <div class="section-label">Strategic Context</div>
+    <h2>Why This Project Matters to GSLF</h2>
+    <ul class="tp-list">
+      <li>
+        <div class="tp-num">1</div>
+        <div class="tp-text">
+          <strong>The website is their biggest lead funnel — currently broken</strong>
+          <span>Active centres in Aurangabad, Hyderabad, and Jammu are missing. Copyright is 2023. Fake 2019 blog posts are live. Students searching for courses can't find or trust them.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">2</div>
+        <div class="tp-text">
+          <strong>They benchmarked Pratham and Quest Alliance — and want to beat both</strong>
+          <span>GSLF has something neither competitor offers: salary-outcome data and an employer portal. The BRD is explicit — lead with employment outcomes, not mission text.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">3</div>
+        <div class="tp-text">
+          <strong>Three distinct revenue/impact streams need separate journeys</strong>
+          <span>Student enrolments, Employer hiring, Donor/CSR funding — all on one domain. The homepage must answer all three within 5 seconds. Current site answers none.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">4</div>
+        <div class="tp-text">
+          <strong>They have a for-profit entity (FGSPL) that needs careful co-branding</strong>
+          <span>Legal and branding disclosure is a BRD requirement. FGSPL is the employer-facing / apprenticeship arm. Mishandling this creates legal and credibility risk.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- TALKING POINTS — OPENING -->
+  <div class="card">
+    <div class="section-label">Talking Points — Opening (First 5 Minutes)</div>
+    <h2>How to Open the Meeting</h2>
+    <ul class="tp-list">
+      <li>
+        <div class="tp-num">1</div>
+        <div class="tp-text">
+          <strong>"We've gone through your BRD in detail — and we have a specific observation."</strong>
+          <span>Signal you're not just another vendor. You've done the homework. This earns attention immediately.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">2</div>
+        <div class="tp-text">
+          <strong>"GSLF's placement rate of 80%+ is your single biggest differentiator — and it's completely invisible on your current site."</strong>
+          <span>16,000 placed out of 20,000 trained = 80% placement. Neither Pratham nor Quest can say this. Open with impact, not your portfolio.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">3</div>
+        <div class="tp-text">
+          <strong>"The BRD is ambitious. Our job as your product partner is to protect Phase 1 from scope creep."</strong>
+          <span>Positions you as a strategic co-pilot, not an order-taker. The BRD has 3 phases — keep the focus on launch essentials.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- TALKING POINTS — PRODUCT -->
+  <div class="card green">
+    <div class="section-label">Talking Points — Product &amp; Delivery</div>
+    <h2>What You Bring to the Table</h2>
+    <ul class="tp-list">
+      <li>
+        <div class="tp-num">1</div>
+        <div class="tp-text">
+          <strong>Audience-first architecture — not page-first</strong>
+          <span>We design the navigation and journey for 4 distinct audiences (Student, Employer, Donor, Partner) — each landing on a path that answers their primary question within seconds, not scrolling.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">2</div>
+        <div class="tp-text">
+          <strong>Editable everything — no vendor lock-in</strong>
+          <span>The BRD mandates editable impact counters, course details, job openings, and ticker. We build on a CMS so your team updates everything without a developer call.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">3</div>
+        <div class="tp-text">
+          <strong>Zoho CRM integration from Day 1</strong>
+          <span>Every lead form — student, employer, donor, CSR — flows directly into Zoho. No manual follow-up gaps. KPIs are trackable from launch.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">4</div>
+        <div class="tp-text">
+          <strong>AI Chatbot that qualifies, not just greets <span style="background:#f59e0b;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;vertical-align:middle;margin-left:6px;">Phase 2</span></strong>
+          <span>Not a generic "How can I help?" — a structured course-finder: Education level → Location → Interest → Job goal → Recommended course + nearest centre + WhatsApp handoff. Zoho CRM integration also Phase 2. Phase 1 includes the chatbot UI wireframe and flow design only, so Phase 2 build is fast.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num">5</div>
+        <div class="tp-text">
+          <strong>FGSPL co-branding handled correctly</strong>
+          <span>Footer disclosures, cross-linking, consistent UX between GSLF and FGSPL — structured to avoid legal ambiguity while reinforcing the shared mission story for donors.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- POSITIONING DO/DON'T -->
+  <div class="card amber">
+    <div class="section-label">Your Positioning in This Meeting</div>
+    <h2>Do This / Don't Do That</h2>
+    <div class="pos-grid">
+      <div class="pos-box do">
+        <h4>✅ DO</h4>
+        <ul>
+          <li>Lead with their 80% placement stat — make them feel proud of what they have</li>
+          <li>Use the BRD's own language back to them ("Skill-to-Employment Platform")</li>
+          <li>Reference Pratham &amp; Quest Alliance — they benchmarked these, it shows you read the BRD</li>
+          <li>Focus on Phase 1 clarity — what launches, what waits</li>
+          <li>Ask about content readiness early — this is their #1 risk</li>
+          <li>Mention KPI tracking from Day 1 — the BRD has 10 explicit KPIs</li>
+        </ul>
+      </div>
+      <div class="pos-box dont">
+        <h4>🚫 DON'T</h4>
+        <ul>
+          <li>Don't pitch your portfolio before understanding their urgency</li>
+          <li>Don't use "platform" language on donor pages — the BRD explicitly says soften it there</li>
+          <li>Don't promise go-live dates before content ownership is confirmed</li>
+          <li>Don't bundle Phase 2/3 features into Phase 1 pricing — scope will balloon</li>
+          <li>Don't ignore the FGSPL question — it will surface later if you don't address it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS TO ASK -->
+  <div class="card purple">
+    <div class="section-label">Discovery Questions to Ask in the Meeting</div>
+    <h2>Your 12 Must-Ask Questions</h2>
+    <ul class="q-list">
+      <li>
+        <div class="q-icon">📅</div>
+        <div class="q-text">
+          <strong>Q1. What is the real deadline driving this? Is there a funder review, government audit, or board presentation?</strong>
+          <span>The BRD says Go-Live is TBD — find the real urgency behind this project.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">📝</div>
+        <div class="q-text">
+          <strong>Q2. Content readiness — where are you today on the 10+ content items listed in Section 10?</strong>
+          <span>Success stories, financials, team photos, course data — the BRD notes the 2019 Lorem Ipsum disaster. Who owns content delivery now?</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🔧</div>
+        <div class="q-text">
+          <strong>Q3. Is the existing WordPress installation being kept, or are you open to replacing it?</strong>
+          <span>BRD says vendor should recommend. Your answer here positions your tech stack choice.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🏢</div>
+        <div class="q-text">
+          <strong>Q4. What is the FGSPL website situation today — does it exist, who manages it, what's the relationship with this redesign?</strong>
+          <span>The BRD requires UX consistency between both sites and cross-linking. You need to scope this.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🤖</div>
+        <div class="q-text">
+          <strong>Q5. On the AI Chatbot — do you have a Zoho account active? Who is the internal tech owner for the CRM integration?</strong>
+          <span>Chatbot UI design is Phase 1; full chatbot build + Zoho integration moves to Phase 2. Confirm they're aligned on this phasing early.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🗺️</div>
+        <div class="q-text">
+          <strong>Q6. For the interactive India map — do you have a Google Maps API key, and is the centre location data clean and ready?</strong>
+          <span>This is a Phase 1 must-have in the BRD. If data isn't ready, it becomes a blocker.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">📊</div>
+        <div class="q-text">
+          <strong>Q7. The impact dashboard must update every 15 days — who internally owns that data and how is it currently tracked?</strong>
+          <span>If it's manual spreadsheets, you need to design the update workflow into the CMS, not just the front-end.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">💬</div>
+        <div class="q-text">
+          <strong>Q8. WhatsApp Business API — is your account set up? Do you have a verified number?</strong>
+          <span>Sticky WhatsApp button and counsellor CTA are Must Haves in the BRD. Without the API account, you can't build the handoff.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🌐</div>
+        <div class="q-text">
+          <strong>Q9. Hindi language toggle — how much content do you expect to translate, and who does the Hindi copywriting?</strong>
+          <span>The BRD mandates Hindi on student and course pages. If GSLF isn't providing translations, it must be scoped.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">💰</div>
+        <div class="q-text">
+          <strong>Q10. Do you have a budget range in mind, and is this a fixed-price engagement or milestone-based?</strong>
+          <span>Ask diplomatically after you've established value. The BRD has a 3-phase scope — phased billing might appeal to them.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🧑‍💼</div>
+        <div class="q-text">
+          <strong>Q11. Who is the single decision-maker — is it Devjit (CTO), the CEO, or a committee? What does approval look like?</strong>
+          <span>The BRD approval table lists CEO + COO + CTO. Know who you need to convince and what the final sign-off process is.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-icon">🔁</div>
+        <div class="q-text">
+          <strong>Q12. Post-launch support — what's your expectation? Monthly retainer, ad-hoc, or handover to internal team?</strong>
+          <span>The BRD lists post-launch support as 10% of vendor evaluation weight. Clarify upfront to avoid ambiguity.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RISKS TO WATCH -->
+  <div class="card red">
+    <div class="section-label">Risks You Should Raise Proactively</div>
+    <h2>Red Flags in the BRD</h2>
+    <div class="risk-grid">
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ Content Black Hole</div>
+        <p>10+ content types are GSLF's responsibility — success stories, financials, photos, batch schedules. No content = no go-live. Ask for a content readiness date before signing.</p>
+      </div>
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ No Go-Live Date Set</div>
+        <p>TBD go-live is a red flag. Without a deadline, scope creeps endlessly. Push for a target date in this meeting.</p>
+      </div>
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ FGSPL Scope Ambiguity</div>
+        <p>BRD asks for UX consistency between GSLF and FGSPL websites. If FGSPL site isn't in scope, define this clearly in the contract.</p>
+      </div>
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ Chatbot Integration Dependency</div>
+        <p>Chatbot UI is yours; Zoho CRM + WhatsApp API is theirs. Without a clear integration owner on their side, you carry the blame when it doesn't work.</p>
+      </div>
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ Phase 2 Creep</div>
+        <p>Alumni network, blog, city SEO pages, research publications — the BRD lists these as Phase 2/3 but clients often ask for them at Phase 1 price.</p>
+      </div>
+      <div class="risk-tile">
+        <div class="risk-label">⚠️ Multiple Stakeholder Sign-offs</div>
+        <p>CEO + COO + CTO all in the approval row. Ensure you have all three aligned before starting development — mid-project direction changes are expensive.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUGGESTIONS -->
+  <div class="card" style="border-left-color:#0891b2;">
+    <div class="section-label">Our Suggestions — Value-Adds Beyond the BRD</div>
+    <h2>What We'd Recommend They Consider</h2>
+    <p style="font-size:13.5px;color:#6b7280;margin-bottom:20px;">These are not in the BRD but are high-ROI additions worth raising. Present these as strategic recommendations — they show you're thinking like a product partner, not just a delivery vendor.</p>
+    <ul class="tp-list">
+      <li>
+        <div class="tp-num" style="background:#0891b2;">1</div>
+        <div class="tp-text">
+          <strong>WhatsApp-first Student Journey — not just a sticky button</strong>
+          <span>80%+ of GSLF's target students are on WhatsApp more than any website. Instead of just a sticky button, build a structured WhatsApp flow (via WhatsApp Business API) that mirrors the website journey — course enquiry, batch selection, Apply Now — all inside WhatsApp. This can capture 3–5× more leads than form fills alone, especially from Tier 2/3 cities.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">2</div>
+        <div class="tp-text">
+          <strong>Employer Trust Badges — not just logos</strong>
+          <span>The BRD asks for a "partner logo wall." We'd suggest upgrading this to quantified trust tiles: <em>Voltas — 320 candidates hired | LG — 180 hired | Panasonic — 95 hired.</em> A logo wall signals association. A hiring count signals proof. This is a direct conversion trigger for students and a strong credibility signal for new employers.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">3</div>
+        <div class="tp-text">
+          <strong>Live Batch Seat Counter — create urgency organically</strong>
+          <span>"Only 4 seats left — Pune batch starting July 20." This is a simple CMS-driven counter on each course page, updated by centre HODs. No engineering complexity. But it changes student behaviour from "I'll apply later" to "I need to apply now." Course pages with scarcity signals typically see 30–40% higher CTR on Apply Now.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">4</div>
+        <div class="tp-text">
+          <strong>A "For Parents" Section — India-specific conversion lever</strong>
+          <span>For GSLF's 18–24 age group, parents are often the real decision-makers. A dedicated section answering: "Is this safe? Will my child get a job? What is the salary? Is this government-certified?" — with NSDC/Skill India logos, placement data, and a parent enquiry WhatsApp number — directly addresses the person who often blocks enrollment. No competitor does this.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">5</div>
+        <div class="tp-text">
+          <strong>Google for Jobs + Course Schema Markup — free SEO leverage</strong>
+          <span>Marking up course pages with Google's <em>Course</em> and <em>JobPosting</em> structured data gets GSLF's courses surfaced directly in Google Search and Google for Jobs — without any ad spend. Given GSLF's trade-specific courses (EV Technician, RACW, Optical Fiber), these searches have high commercial intent. This is a one-time SEO setup that delivers compounding organic traffic.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">6</div>
+        <div class="tp-text">
+          <strong>Reels-ready Success Story Format — content that markets itself</strong>
+          <span>The BRD calls for 5 success stories. We'd suggest designing each story in a 9:16 vertical card format that GSLF can screenshot and post directly to Instagram Reels and YouTube Shorts — zero extra design work. A student saying "I earn ₹22,000/month now — I trained at GSLF Pune" is the most powerful ad GSLF can run, and it costs nothing to distribute.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">7</div>
+        <div class="tp-text">
+          <strong>State Government MoU Showcase — underused credibility asset</strong>
+          <span>GSLF has active MoUs with multiple state governments. Most NGO websites bury this in About Us text. We'd recommend a dedicated visual strip on the homepage — state seals + MoU year — similar to how ed-tech companies show university partnerships. For rural students and parents, a state government endorsement is more credible than any corporate logo.</span>
+        </div>
+      </li>
+      <li>
+        <div class="tp-num" style="background:#0891b2;">8</div>
+        <div class="tp-text">
+          <strong>Monthly Impact Email — build a donor retention channel from Day 1</strong>
+          <span>The BRD mentions a newsletter but doesn't define its purpose. We'd suggest positioning it specifically as a monthly <em>Impact Update</em> for donors and CSR partners — "This month: 142 students placed, 3 new state centres opened, spotlight: Priya from Nashik." Sent via Brevo/Mailchimp, automated from the CMS. Donors who receive consistent impact updates give 2–3× more than those who don't.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CLOSE -->
+  <div class="card green">
+    <div class="section-label">How to Close This Meeting</div>
+    <h2>Proposed Next Steps (Suggest These)</h2>
+    <div class="close-steps">
+      <div class="close-step">
+        <div class="step-n">Step 1 — This Week</div>
+        <p>Share a Phase 1 scope summary doc and timeline skeleton within 48 hours</p>
+      </div>
+      <div class="close-step">
+        <div class="step-n">Step 2 — Week 2</div>
+        <p>Content readiness checklist sent to GSLF team with clear ownership columns</p>
+      </div>
+      <div class="close-step">
+        <div class="step-n">Step 3 — Week 2</div>
+        <p>Proposal + phased quote (Phase 1 firm, Phase 2/3 indicative) delivered</p>
+      </div>
+      <div class="close-step">
+        <div class="step-n">Step 4 — Week 3</div>
+        <p>Design sprint kickoff — homepage wireframe + audience journey map</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;font-size:12px;color:#9ca3af;margin-top:40px;padding-top:20px;border-top:1px solid #e5e7eb;">
+    Prepared for internal use · GSLF Engagement · July 2026 · Confidential
+  </div>
+
+</div>
+</body>
+</html>

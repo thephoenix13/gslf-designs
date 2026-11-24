@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GSLF Website Redesign — Project Estimate</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #f0f4f8;
+  color: #1a1a2e;
+  line-height: 1.65;
+}
+
+/* COVER */
+.cover {
+  background: linear-gradient(140deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  color: #fff;
+  padding: 64px 72px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  border-radius: 50%;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(10,191,119,0.1) 0%, transparent 70%);
+  bottom: -60px; left: 200px;
+  border-radius: 50%;
+}
+.cover-inner { position: relative; z-index: 1; }
+.doc-type {
+  display: inline-block;
+  background: #e94560;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.cover h1 {
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.cover h1 span { color: #e94560; }
+.cover .tagline {
+  font-size: 16px;
+  color: #a8b2d8;
+  margin-bottom: 36px;
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 28px;
+  margin-top: 8px;
+}
+.cover-meta-item .label {
+  font-size: 10px;
+  color: #6b7a9e;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.cover-meta-item .val {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* CONTAINER */
+.container { max-width: 1080px; margin: 0 auto; padding: 48px 32px 100px; }
+
+/* SECTION HEADER */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+.section-header:first-child { margin-top: 0; }
+.section-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a2e;
+}
+.section-header .section-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* UNDERSTANDING CARD */
+.understand-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+.understand-card p {
+  font-size: 14.5px;
+  color: #374151;
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+.understand-card p:last-child { margin-bottom: 0; }
+.understand-card p strong { color: #0f3460; }
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.insight-tile {
+  border-radius: 10px;
+  padding: 16px 18px;
+  border: 1px solid #e5e7eb;
+}
+.insight-tile.blue { background: #eff6ff; border-color: #bfdbfe; }
+.insight-tile.red  { background: #fff1f2; border-color: #fda4af; }
+.insight-tile.green { background: #f0fdf4; border-color: #86efac; }
+.insight-tile.amber { background: #fffbeb; border-color: #fcd34d; }
+.insight-tile.purple { background: #faf5ff; border-color: #d8b4fe; }
+.insight-tile .it-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.insight-tile.blue .it-label { color: #1d4ed8; }
+.insight-tile.red .it-label { color: #be123c; }
+.insight-tile.green .it-label { color: #15803d; }
+.insight-tile.amber .it-label { color: #b45309; }
+.insight-tile.purple .it-label { color: #7c3aed; }
+.insight-tile .it-val { font-size: 22px; font-weight: 900; color: #1a1a2e; }
+.insight-tile .it-desc { font-size: 12px; color: #6b7280; margin-top: 3px; }
+
+/* PHASE CARD */
+.phase-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  margin-bottom: 32px;
+}
+.phase-header {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.phase-header.p1 { background: linear-gradient(135deg, #0f3460, #1a5276); }
+.phase-header.p2 { background: linear-gradient(135deg, #0abf77, #059669); }
+.phase-header.p3 { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+
+.phase-title-group {}
+.phase-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+}
+.phase-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+}
+.phase-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 3px;
+}
+.phase-stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.phase-stat { text-align: right; }
+.phase-stat .ps-label { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.phase-stat .ps-val { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.2; }
+.phase-stat .ps-sub { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+.phase-body { padding: 28px 32px; }
+
+/* DELIVERABLE TABLE */
+.del-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.del-table th {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+  text-align: left;
+  padding: 0 0 12px 0;
+  border-bottom: 2px solid #f1f3f5;
+}
+.del-table th:last-child { text-align: right; }
+.del-table td {
+  padding: 13px 0;
+  border-bottom: 1px solid #f9fafb;
+  vertical-align: top;
+  font-size: 13.5px;
+}
+.del-table td:last-child { text-align: right; white-space: nowrap; }
+.del-table tr:last-child td { border-bottom: none; }
+.del-name { font-weight: 700; color: #1a1a2e; display: block; margin-bottom: 3px; }
+.del-desc { font-size: 12.5px; color: #6b7280; }
+.complexity-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.c-high { background: #fff1f2; color: #be123c; }
+.c-med { background: #fffbeb; color: #b45309; }
+.c-low { background: #f0fdf4; color: #15803d; }
+.hours-col { font-weight: 700; color: #0f3460; font-size: 14px; }
+
+/* PHASE TOTALS */
+.phase-totals {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  border: 1px solid #e5e7eb;
+}
+.pt-left { font-size: 13px; color: #6b7280; }
+.pt-left strong { color: #1a1a2e; display: block; font-size: 15px; margin-bottom: 2px; }
+.pt-right { display: flex; gap: 24px; align-items: center; }
+.pt-hours { text-align: center; }
+.pt-hours .ph-label { font-size: 10px; color: #9ca3af; font-weight: 700; text-transform: uppercase; }
+.pt-hours .ph-val { font-size: 20px; font-weight: 900; color: #0f3460; }
+.price-range {
+  background: #0f3460;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.phase-card:nth-child(2) .price-range { background: #059669; }
+.phase-card:nth-child(3) .price-range { background: #7c3aed; }
+.pr-label { font-size: 10px; color: rgba(255,255,255,0.7); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.pr-val { font-size: 19px; font-weight: 900; }
+
+/* NOT IN SCOPE */
+.nis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.nis-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid #f1f3f5;
+}
+.nis-item::before { content: '✕'; color: #d1d5db; font-weight: 700; flex-shrink: 0; }
+
+/* PRICING JUSTIFICATION */
+.just-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.just-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 24px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.just-card .jc-icon { font-size: 24px; margin-bottom: 10px; }
+.just-card h4 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+.just-card p { font-size: 13px; color: #6b7280; line-height: 1.6; }
+
+/* SUMMARY TABLE */
+.summary-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  margin-bottom: 32px;
+}
+.summary-table { width: 100%; border-collapse: collapse; }
+.summary-table th {
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 24px;
+  text-align: left;
+}
+.summary-table th:not(:first-child) { text-align: center; }
+.summary-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f1f3f5;
+  font-size: 14px;
+}
+.summary-table td:not(:first-child) { text-align: center; }
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table .total-row td {
+  background: #f8fafc;
+  font-weight: 800;
+  font-size: 15px;
+  color: #0f3460;
+  border-top: 2px solid #e5e7eb;
+}
+.phase-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.dot-p1 { background: #0f3460; }
+.dot-p2 { background: #0abf77; }
+.dot-p3 { background: #7c3aed; }
+
+/* TIMELINE */
+.timeline { display: flex; gap: 0; margin: 16px 0; }
+.tl-segment {
+  flex: 1;
+  border-radius: 0;
+  padding: 14px 16px;
+  position: relative;
+}
+.tl-segment:first-child { border-radius: 10px 0 0 10px; }
+.tl-segment:last-child { border-radius: 0 10px 10px 0; }
+.tl-segment.p1 { background: #0f3460; }
+.tl-segment.p2 { background: #0abf77; flex: 0.7; }
+.tl-segment.p3 { background: #7c3aed; flex: 0.9; }
+.tl-phase { font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+.tl-weeks { font-size: 16px; font-weight: 900; color: #fff; }
+.tl-label { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+/* ASSUMPTIONS */
+.assume-list { list-style: none; }
+.assume-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  color: #4b5563;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f3f5;
+}
+.assume-list li:last-child { border-bottom: none; }
+.assume-list li::before {
+  content: '→';
+  color: #9ca3af;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.assume-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* FOOTER */
+.doc-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+  padding-top: 32px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .cover { padding: 36px 24px 32px; }
+  .cover h1 { font-size: 26px; }
+  .container { padding: 28px 16px 60px; }
+  .phase-body { padding: 20px 18px; }
+  .phase-header { padding: 18px 20px; }
+  .phase-stats { display: none; }
+  .timeline { flex-direction: column; gap: 6px; }
+  .tl-segment, .tl-segment:first-child, .tl-segment:last-child { border-radius: 8px; }
+  .just-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { margin: 10mm 12mm; size: A4; }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+
+  body { background: #fff !important; font-size: 10.5px !important; line-height: 1.4 !important; }
+
+  /* ── COVER: compact, NO forced page break ── */
+  .cover { padding: 22px 32px 18px !important; margin-bottom: 0 !important; }
+  .cover::before, .cover::after { display: none !important; }
+  .cover h1 { font-size: 22px !important; margin-bottom: 3px !important; }
+  .cover .tagline { font-size: 11px !important; margin-bottom: 14px !important; }
+  .cover-meta { gap: 10px !important; padding-top: 12px !important; margin-top: 0 !important; }
+  .cover-meta-item .val { font-size: 11px !important; }
+  .cover-meta-item .label { font-size: 8px !important; }
+  .doc-type { font-size: 8px !important; padding: 3px 8px !important; margin-bottom: 10px !important; }
+
+  /* ── LAYOUT ── */
+  .container { padding: 12px 16px 16px !important; }
+
+  /* ── SECTION HEADERS: always stay with following content ── */
+  .section-header {
+    margin-top: 14px !important;
+    margin-bottom: 6px !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+  .section-header h2 { font-size: 13px !important; }
+  .section-header .section-sub { font-size: 9px !important; margin-top: 1px !important; }
+  .section-icon { width: 24px !important; height: 24px !important; font-size: 11px !important; }
+
+  /* ── UNDERSTANDING CARD ── */
+  .understand-card {
+    padding: 12px 16px !important;
+    margin-bottom: 8px !important;
+    border: 1px solid #e5e7eb !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .understand-card p { font-size: 10px !important; margin-bottom: 6px !important; line-height: 1.45 !important; }
+
+  /* ── INSIGHT TILES ── */
+  .insight-grid { gap: 6px !important; margin-top: 8px !important; }
+  .insight-tile { padding: 8px 10px !important; break-inside: avoid !important; }
+  .insight-tile .it-val { font-size: 15px !important; }
+  .insight-tile .it-label, .insight-tile .it-desc { font-size: 9px !important; }
+
+  /* ── TIMELINE BAR ── */
+  .timeline { margin: 8px 0 4px !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+  .tl-segment { padding: 8px 10px !important; }
+  .tl-weeks { font-size: 12px !important; }
+  .tl-phase, .tl-label { font-size: 8px !important; }
+
+  /* ── PHASE CARDS: header must never separate from body ── */
+  .phase-card {
+    border: 1px solid #e5e7eb !important;
+    margin-bottom: 12px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .phase-header {
+    padding: 10px 16px !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+  .phase-title { font-size: 13px !important; }
+  .phase-subtitle { font-size: 8px !important; margin-top: 1px !important; }
+  .phase-badge { font-size: 7.5px !important; margin-bottom: 2px !important; letter-spacing: 1px !important; }
+  .phase-stat .ps-label { font-size: 7.5px !important; }
+  .phase-stat .ps-val { font-size: 14px !important; }
+  .phase-stat .ps-sub { font-size: 8px !important; }
+  .phase-stats { gap: 12px !important; }
+  .phase-body { padding: 10px 16px !important; }
+
+  /* ── SPRINT BREAKDOWN (inside phase body) ── */
+  .phase-body > div[style*="grid"] {
+    gap: 6px !important;
+    margin-bottom: 10px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .phase-body > div[style*="grid"] > div { padding: 8px 10px !important; }
+  .phase-body > div[style*="grid"] > div > div:nth-child(2) { font-size: 14px !important; }
+  .phase-body > div[style*="grid"] > div > div:nth-child(3) { font-size: 9px !important; }
+  .phase-body > p[style] { font-size: 9px !important; margin-bottom: 8px !important; }
+
+  /* ── DELIVERABLE TABLE ── */
+  .del-table { break-inside: auto !important; }
+  .del-table thead { break-after: avoid !important; page-break-after: avoid !important; }
+  .del-table th { font-size: 8.5px !important; padding-bottom: 6px !important; }
+  .del-table tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+  .del-table td { padding: 6px 0 !important; font-size: 10px !important; }
+  .del-name { font-size: 10px !important; margin-bottom: 1px !important; }
+  .del-desc { font-size: 9px !important; line-height: 1.35 !important; }
+  .complexity-badge { font-size: 8px !important; padding: 1px 5px !important; }
+
+  /* ── PHASE TOTALS ── */
+  .phase-totals {
+    padding: 8px 12px !important;
+    margin-top: 6px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .pt-left strong { font-size: 11px !important; }
+  .pt-left { font-size: 9px !important; }
+  .pt-right { gap: 12px !important; }
+  .ph-label { font-size: 8px !important; }
+  .ph-val { font-size: 13px !important; }
+  .price-range { padding: 6px 10px !important; }
+  .pr-label { font-size: 8px !important; }
+  .pr-val { font-size: 13px !important; }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-card {
+    border: 1px solid #e5e7eb !important;
+    margin-bottom: 12px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .summary-table th { padding: 8px 12px !important; font-size: 8.5px !important; }
+  .summary-table td { padding: 8px 12px !important; font-size: 10px !important; }
+  .summary-table tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  /* ── NOT IN SCOPE ── */
+  .nis-grid { gap: 5px !important; }
+  .nis-item { font-size: 9.5px !important; padding: 6px 8px !important; break-inside: avoid !important; }
+
+  /* ── ASSUMPTIONS ── */
+  .assume-card {
+    padding: 12px 16px !important;
+    border: 1px solid #e5e7eb !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .assume-list li {
+    padding: 5px 0 !important;
+    font-size: 9.5px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer { font-size: 8.5px !important; padding-top: 8px !important; margin-top: 8px !important; }
+
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="doc-type">Project Estimate — Confidential</div>
+    <h1>GSLF Website<br/><span>Redesign Estimate</span></h1>
+    <div class="tagline">Skill-to-Employment Platform · Full Redesign · Phase-wise Delivery</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="label">Prepared For</div><div class="val">GSLF — gslfoundation.org</div></div>
+      <div class="cover-meta-item"><div class="label">Contact</div><div class="val">Devjit Gupta, CTO</div></div>
+      <div class="cover-meta-item"><div class="label">BRD Version</div><div class="val">v2.1, June 2026</div></div>
+      <div class="cover-meta-item"><div class="label">Estimate Date</div><div class="val">July 2026</div></div>
+      <div class="cover-meta-item"><div class="label">Total Investment</div><div class="val">₹3.75 Lakhs</div></div>
+      <div class="cover-meta-item"><div class="label">Total Timeline</div><div class="val">~10.5 Weeks</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- UNDERSTANDING THE BRD -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#eff6ff;">📋</div>
+    <div>
+      <h2>Our Understanding of the Brief</h2>
+      <div class="section-sub">Based on BRD v2.1, June 2026 — competitive review of Pratham.org and QuestAlliance.net</div>
+    </div>
+  </div>
+
+  <div class="understand-card">
+    <p>
+      GSLF is a skill-development nonprofit operating <strong>400+ vocational centres across 12+ states</strong>, having trained over <strong>20,000 students</strong> and placed <strong>16,000+</strong> in employment — an 80% placement rate that neither Pratham nor Quest Alliance can match. Despite this scale and outcome data, the current gslfoundation.org is a 2019-era brochure with placeholder content still live, missing active centres, and zero conversion architecture.
+    </p>
+    <p>
+      The BRD calls for a complete strategic repositioning: from an NGO information website to a <strong>Skill-to-Employment Platform</strong>. The new site must serve four distinct audiences — students (primary), employers (secondary), donors/CSR (tertiary), and industry partners — each with a dedicated journey, and must answer their primary question within 5 seconds of landing.
+    </p>
+    <p>
+      GSLF also has a for-profit arm, <strong>FGSPL (Funfirst Global Skills Pvt Ltd)</strong>, that handles apprenticeship and employer-facing work. The redesign must present both entities in a legally clean, brand-consistent manner with appropriate disclosures, cross-linking, and a unified student UX across both properties.
+    </p>
+    <p>
+      The project has been benchmarked explicitly against Pratham.org and QuestAlliance.net. Our recommendation is to lead with GSLF's single biggest competitive advantage — <strong>placement outcomes with salary data</strong> — which neither competitor offers.
+    </p>
+
+    <div class="insight-grid">
+      <div class="insight-tile blue">
+        <div class="it-label">Students Trained</div>
+        <div class="it-val">20,000+</div>
+        <div class="it-desc">Across 12+ states</div>
+      </div>
+      <div class="insight-tile green">
+        <div class="it-label">Placed in Jobs</div>
+        <div class="it-val">16,000+</div>
+        <div class="it-desc">80% placement rate</div>
+      </div>
+      <div class="insight-tile amber">
+        <div class="it-label">Active Centres</div>
+        <div class="it-val">400+</div>
+        <div class="it-desc">60+ labs, 100+ partners</div>
+      </div>
+      <div class="insight-tile red">
+        <div class="it-label">Website Status</div>
+        <div class="it-val">2019</div>
+        <div class="it-desc">Last meaningful update</div>
+      </div>
+      <div class="insight-tile purple">
+        <div class="it-label">Audiences</div>
+        <div class="it-val">4</div>
+        <div class="it-desc">Student · Employer · Donor · Partner</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE OVERVIEW -->
+  <div style="margin: 32px 0 8px;">
+    <div style="font-size:12px;color:#9ca3af;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Project Timeline Overview</div>
+    <div class="timeline">
+      <div class="tl-segment p1">
+        <div class="tl-phase">Phase 1</div>
+        <div class="tl-weeks">5 Weeks</div>
+        <div class="tl-label">Launch — Must Have</div>
+      </div>
+      <div class="tl-segment p2">
+        <div class="tl-phase">Phase 2</div>
+        <div class="tl-weeks">2.5 Wks</div>
+        <div class="tl-label">Post-Launch</div>
+      </div>
+      <div class="tl-segment p3">
+        <div class="tl-phase">Phase 3</div>
+        <div class="tl-weeks">3 Weeks</div>
+        <div class="tl-label">Future</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#dbeafe; font-size:16px; font-weight:900; color:#1d4ed8;">P1</div>
+    <div>
+      <h2>Phase 1 — Launch (Must Have)</h2>
+      <div class="section-sub">Full website redesign · Mobile-first · All core journeys live</div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header p1">
+      <div class="phase-title-group">
+        <div class="phase-badge">Phase 1 · Must Have · Launch</div>
+        <div class="phase-title">Full Website Build</div>
+        <div class="phase-subtitle">Homepage · Student Portal · Employer Portal · Impact Dashboard · Donor Section · CMS · SEO</div>
+      </div>
+      <div class="phase-stats">
+        <div class="phase-stat">
+          <div class="ps-label">Duration</div>
+          <div class="ps-val">5</div>
+          <div class="ps-sub">Weeks</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Frontend</div>
+          <div class="ps-val">3 Wks</div>
+          <div class="ps-sub">+ CMS 2.5 Wks</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Investment</div>
+          <div class="ps-val">₹1.6L</div>
+          <div class="ps-sub">All-in</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-body">
+
+      <!-- SPRINT BREAKDOWN -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:24px;">
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Frontend Dev</div>
+          <div style="font-size:20px;font-weight:900;color:#1a1a2e;">3 Weeks</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:3px;">All pages, UI, responsive design</div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:800;color:#15803d;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">CMS Build</div>
+          <div style="font-size:20px;font-weight:900;color:#1a1a2e;">2.5 Weeks</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:3px;">Admin panel, editable fields, Hindi toggle</div>
+        </div>
+        <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:800;color:#b45309;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Testing & QA</div>
+          <div style="font-size:20px;font-weight:900;color:#1a1a2e;">1 Week</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:3px;">Cross-browser, mobile, bug fixes</div>
+        </div>
+        <div style="background:#faf5ff;border:1px solid #d8b4fe;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:800;color:#7c3aed;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Third Party Setup</div>
+          <div style="font-size:20px;font-weight:900;color:#1a1a2e;">3 Days</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:3px;">Analytics, newsletter, WhatsApp, SEO</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#9ca3af;margin-bottom:20px;font-style:italic;">Frontend and CMS tracks run in parallel. Testing and third-party setup overlap in the final week.</div>
+
+      <table class="del-table">
+        <thead>
+          <tr>
+            <th style="width:36%">Deliverable</th>
+            <th style="width:40%">What's Included</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Track</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="del-name">Discovery & Architecture</span><span class="del-desc">Kickoff + IA</span></td>
+            <td><span class="del-desc">Audience journey maps, sitemap, wireframes (homepage + 3 key templates), content requirement checklist for GSLF team</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td class="hours-col">20–25h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">UI/UX Design System</span><span class="del-desc">All pages, responsive</span></td>
+            <td><span class="del-desc">Full design for desktop + mobile across all pages. Typography, colour system, component library, button states, card variants. Android-optimised.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">80–100h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Homepage</span><span class="del-desc">Primary conversion page</span></td>
+            <td><span class="del-desc">Hero with headline "Learn Skills. Get Certified. Get Hired." · 3 CTAs (Find Courses / Hire Talent / Support a Student) · Animated impact counters · Student journey visual · Partner logo wall · Success stories strip · Newsletter signup · Sticky WhatsApp button · State Govt MoU showcase</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Student Portal</span><span class="del-desc">Course listing + detail pages</span></td>
+            <td><span class="del-desc">All courses with duration, eligibility, location, expected salary, hiring company logos, batch dates. Apply Now + WhatsApp CTA on every page. Career progression pathways. FAQ. Live batch seat counter</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Employer Portal</span><span class="del-desc">New — full build</span></td>
+            <td><span class="del-desc">Dedicated landing page · Candidate sourcing + hiring process · Apprenticeship + upskilling/reskilling details · CSR training partnership info · Request Talent lead capture form (Zoho-ready)</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Success Stories Section</span><span class="del-desc">Min. 5 stories at launch</span></td>
+            <td><span class="del-desc">Real name, photo, location, course, before/after salary, employer name. Video testimonial support. Reels-ready 9:16 card format for social repurposing. Searchable Phase 2.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Impact Dashboard</span><span class="del-desc">Live metrics + India map</span></td>
+            <td><span class="del-desc">7 KPI metrics (students trained, placements, women beneficiaries, PWD, active projects, corporate partners, states covered) · Interactive India map with all 12+ states and 400+ centres · Updated every 15 days by GSLF team via admin panel</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Donor / CSR Section</span><span class="del-desc">Transparency + lead gen</span></td>
+            <td><span class="del-desc">FCRA status display · Annual Report download · Audited financials link · Board & governance section · CSR enquiry form (Zoho-ready) · Donor newsletter signup</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">About Us Page</span><span class="del-desc">Full BRD v2.1 spec</span></td>
+            <td><span class="del-desc">Vision & mission · Founding history & milestones · Accreditations (NSDC, NCVET, TISS, Skill India) · MoUs with state govts · Board & governance · Leadership team · Financials download links</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">GSLF–FGSPL Co-Branding</span><span class="del-desc">Legal + UX alignment</span></td>
+            <td><span class="del-desc">Footer disclosure on all GSLF pages · About Us disclosure paragraph · Cross-linking between GSLF and FGSPL sites · UX and design language consistency for seamless student journey across both properties</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">AI Chatbot — UX Design Only</span><span class="del-desc">Build in Phase 2</span></td>
+            <td><span class="del-desc">Full chatbot conversation flow designed and wireframed in Phase 1 (Education → Location → Interest → Job Goal → Recommendation → WhatsApp handoff). Development + Zoho integration in Phase 2.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Admin CMS Panel</span><span class="del-desc">Non-technical team editable</span></td>
+            <td><span class="del-desc">Editable impact counters · Ticker updates · Course details (duration, salary, batch dates) · Job openings · Success stories · No developer needed for routine updates</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td><span class="complexity-badge" style="background:#d1fae5;color:#065f46;">CMS</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Hindi Language Toggle</span><span class="del-desc">Student + course pages</span></td>
+            <td><span class="del-desc">Hindi toggle on student portal and course pages. Translation layer integrated into CMS. GSLF provides Hindi content — we build the switching infrastructure.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#d1fae5;color:#065f46;">CMS</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">SEO Foundation</span><span class="del-desc">Schema, meta, sitemap</span></td>
+            <td><span class="del-desc">Course + JobPosting schema markup (Google for Jobs) · Unique meta titles & descriptions for all pages · XML sitemap · robots.txt · H1 structure · Page load optimised to under 3 seconds on 4G</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#d1fae5;color:#065f46;">CMS</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Social Media Footer</span><span class="del-desc">All pages</span></td>
+            <td><span class="del-desc">LinkedIn, Instagram, Facebook, YouTube, Twitter/X linked with follow buttons on every page. FGSPL social accounts also linked where applicable.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td><span class="complexity-badge" style="background:#d1fae5;color:#065f46;">CMS</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">QA, Testing & Handover</span><span class="del-desc">Launch-ready</span></td>
+            <td><span class="del-desc">Cross-browser testing (Chrome, Firefox, Safari, Edge — latest 2 versions) · Android low-end device testing · Basic WCAG accessibility · Bug fixes & polish · CMS training session for GSLF staff · Content update guide</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#fef3c7;color:#92400e;">Testing</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">WhatsApp Integration</span><span class="del-desc">Sticky · All pages</span></td>
+            <td><span class="del-desc">Sticky WhatsApp button across all pages and devices. Direct counsellor handoff link. Pre-filled message templates per course page.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td><span class="complexity-badge" style="background:#ede9fe;color:#5b21b6;">3rd Party</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Newsletter Setup</span><span class="del-desc">Mailchimp / Brevo</span></td>
+            <td><span class="del-desc">Newsletter signup integrated on homepage and donor section. List segmentation (students vs donors). Monthly Impact Update email template designed and configured.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td><span class="complexity-badge" style="background:#ede9fe;color:#5b21b6;">3rd Party</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Google Analytics + Tracking</span><span class="del-desc">10 KPIs from Day 1</span></td>
+            <td><span class="del-desc">GA4 setup with shared access (CTO, Operations, Program teams). Event tracking on all CTAs, lead forms, and WhatsApp buttons. Monthly analytics report template. Tracks all 10 BRD KPIs.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td><span class="complexity-badge" style="background:#ede9fe;color:#5b21b6;">3rd Party</span></td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Discovery & Architecture</span><span class="del-desc">Kickoff + IA</span></td>
+            <td><span class="del-desc">Audience journey maps, sitemap, wireframes (homepage + 3 key templates), content requirement checklist for GSLF team</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td><span class="complexity-badge" style="background:#dbeafe;color:#1d4ed8;">Frontend</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="phase-totals">
+        <div class="pt-left">
+          <strong>Phase 1 Total</strong>
+          18 deliverable modules · 5 weeks · Full launch-ready website
+        </div>
+        <div class="pt-right">
+          <div class="pt-hours">
+            <div class="ph-label">Duration</div>
+            <div class="ph-val">5 Weeks</div>
+          </div>
+          <div class="price-range">
+            <div class="pr-label">Fixed Investment</div>
+            <div class="pr-val">₹1.6 Lakhs</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#d1fae5; font-size:16px; font-weight:900; color:#059669;">P2</div>
+    <div>
+      <h2>Phase 2 — Post Launch (Should Have)</h2>
+      <div class="section-sub">AI Chatbot · SEO City Pages · Blog · Calendar · Alumni · Research</div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header p2">
+      <div class="phase-title-group">
+        <div class="phase-badge">Phase 2 · Should Have · Post-Launch</div>
+        <div class="phase-title">Growth & Reach Layer</div>
+        <div class="phase-subtitle">Chatbot · City SEO · Blog · Batch Calendar · Alumni · Publications</div>
+      </div>
+      <div class="phase-stats">
+        <div class="phase-stat">
+          <div class="ps-label">Duration</div>
+          <div class="ps-val">2.5</div>
+          <div class="ps-sub">Weeks</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Effort</div>
+          <div class="ps-val">200–260</div>
+          <div class="ps-sub">Hours</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Investment</div>
+          <div class="ps-val">₹1.0L</div>
+          <div class="ps-sub">All-in</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <table class="del-table">
+        <thead>
+          <tr>
+            <th style="width:36%">Deliverable</th>
+            <th style="width:40%">What's Included</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="del-name">AI Chatbot — Full Build</span><span class="del-desc">Course finder + WhatsApp handoff</span></td>
+            <td><span class="del-desc">Course-finder chatbot (not generic). Qualification flow: Education → Location → Interest → Job goal → Recommended course + nearest centre. WhatsApp handoff after recommendation. Uses UX design from Phase 1.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">50–65h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Zoho CRM — Forms Integration</span><span class="del-desc">Full lead capture pipeline</span></td>
+            <td><span class="del-desc">All 4 lead forms piped into Zoho: student enquiry, employer (Request Talent), donor/CSR, industry partner. Feedback forms for students, employers, donors also captured. Proper tagging, lead source attribution, and owner assignment per form.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td class="hours-col">25–35h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">SEO City Pages</span><span class="del-desc">24–40 landing pages</span></td>
+            <td><span class="del-desc">Dedicated SEO pages for 8 trade categories (EV Technician, RACW, Optical Fiber, 5G, etc.) × target cities. Each page: unique meta title, meta description, H1, 500+ words original content, Course schema markup.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">60–80h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Blog / Field Insights</span><span class="del-desc">CMS-driven</span></td>
+            <td><span class="del-desc">Blog section with CMS editor for GSLF team. Category tagging. Monthly update workflow. Initial 4 posts as launch content.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td class="hours-col">20–25h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Event & Batch Calendar</span><span class="del-desc">Centre-level scheduling</span></td>
+            <td><span class="del-desc">Filterable calendar of upcoming batches per centre. Editable by centre HODs via CMS. Integrate with Apply Now CTA.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td class="hours-col">25–30h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Alumni Network — Basic</span><span class="del-desc">Directory + showcase</span></td>
+            <td><span class="del-desc">Alumni directory page with searchable profiles (name, trade, employer, state). Submit profile form. Highlights featured alumni above success stories.</span></td>
+            <td><span class="complexity-badge c-med">Medium</span></td>
+            <td class="hours-col">20–25h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Volunteer Section</span><span class="del-desc">New</span></td>
+            <td><span class="del-desc">Volunteer opportunity listings. Application form (Zoho-integrated). GSLF team editable listings via CMS.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td class="hours-col">12–15h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Publications & Research Section</span><span class="del-desc">Framework for annual reports</span></td>
+            <td><span class="del-desc">Downloadable publications library. Annual Impact Report showcase. Employer Insights Report placeholder (content from GSLF). Toolkits and field guides section.</span></td>
+            <td><span class="complexity-badge c-low">Low</span></td>
+            <td class="hours-col">14–18h</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="phase-totals">
+        <div class="pt-left">
+          <strong>Phase 2 Total</strong>
+          8 deliverable modules · Growth, organic traffic, and CRM layer
+        </div>
+        <div class="pt-right">
+          <div class="pt-hours">
+            <div class="ph-label">Hours</div>
+            <div class="ph-val">226–293h</div>
+          </div>
+          <div class="price-range">
+            <div class="pr-label">Investment Range</div>
+            <div class="pr-val">₹1.0 Lakhs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#ede9fe; font-size:16px; font-weight:900; color:#7c3aed;">P3</div>
+    <div>
+      <h2>Phase 3 — Future (Nice to Have)</h2>
+      <div class="section-sub">Student Login · Placement Tracking · Job Board · LMS Integration</div>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header p3">
+      <div class="phase-title-group">
+        <div class="phase-badge">Phase 3 · Nice to Have · Future Roadmap</div>
+        <div class="phase-title">Platform Intelligence Layer</div>
+        <div class="phase-subtitle">Student Portal Login · Placement Tracking · Job Board · Skill Assessment · LMS</div>
+      </div>
+      <div class="phase-stats">
+        <div class="phase-stat">
+          <div class="ps-label">Duration</div>
+          <div class="ps-val">3</div>
+          <div class="ps-sub">Weeks</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Effort</div>
+          <div class="ps-val">280–360</div>
+          <div class="ps-sub">Hours</div>
+        </div>
+        <div class="phase-stat">
+          <div class="ps-label">Investment</div>
+          <div class="ps-val">₹1.15L</div>
+          <div class="ps-sub">All-in</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <table class="del-table">
+        <thead>
+          <tr>
+            <th style="width:36%">Deliverable</th>
+            <th style="width:40%">What's Included</th>
+            <th style="width:12%">Complexity</th>
+            <th style="width:12%">Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="del-name">Student Login Portal</span><span class="del-desc">Authenticated student accounts</span></td>
+            <td><span class="del-desc">Student registration and login. Profile, enrolled courses, batch details, certificate download, placement status tracking.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">80–100h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Placement Tracking System</span><span class="del-desc">End-to-end pipeline</span></td>
+            <td><span class="del-desc">Track student from enrollment → training → certification → placement. Employer confirmation of hire. Salary data collection. Feeds into live Impact Dashboard automatically.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">70–90h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Job Board</span><span class="del-desc">GSLF employer network</span></td>
+            <td><span class="del-desc">Active job listings from GSLF's 100+ employer partners. Filtered by trade, location, salary. Direct apply flow into employer's pipeline via Zoho.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">60–80h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">Skill Assessment Tools</span><span class="del-desc">Pre-course diagnostics</span></td>
+            <td><span class="del-desc">Trade-wise diagnostic assessments for students before course selection. Score-based course recommendation. Results feed chatbot recommendation engine.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">40–50h</td>
+          </tr>
+          <tr>
+            <td><span class="del-name">LMS Integration</span><span class="del-desc">Learning management system</span></td>
+            <td><span class="del-desc">Integration with existing or new LMS. Course progress tracking. Certificate issuance on completion. Linked to student login portal.</span></td>
+            <td><span class="complexity-badge c-high">High</span></td>
+            <td class="hours-col">30–40h</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="phase-totals">
+        <div class="pt-left">
+          <strong>Phase 3 Total</strong>
+          5 deliverable modules · Full platform intelligence and student lifecycle management
+        </div>
+        <div class="pt-right">
+          <div class="pt-hours">
+            <div class="ph-label">Hours</div>
+            <div class="ph-val">280–360h</div>
+          </div>
+          <div class="price-range">
+            <div class="pr-label">Investment Range</div>
+            <div class="pr-val">₹1.15 Lakhs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVESTMENT SUMMARY -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#fef3c7;">💰</div>
+    <div>
+      <h2>Investment Summary</h2>
+      <div class="section-sub">All figures in Indian Rupees · Exclusive of GST · Content provided by GSLF</div>
+    </div>
+  </div>
+
+  <div class="summary-card">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Modules</th>
+          <th>Hours</th>
+          <th>Duration</th>
+          <th>Investment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="phase-dot dot-p1"></span><strong>Phase 1 — Launch</strong><br/><span style="font-size:12px;color:#6b7280;">Must Have · Full website</span></td>
+          <td>18</td>
+          <td>5 weeks</td>
+          <td>14–18 weeks</td>
+          <td><strong style="color:#0f3460;font-size:16px;">₹1.6L</strong></td>
+        </tr>
+        <tr>
+          <td><span class="phase-dot dot-p2"></span><strong>Phase 2 — Post Launch</strong><br/><span style="font-size:12px;color:#6b7280;">Should Have · Growth + CRM layer</span></td>
+          <td>8</td>
+          <td>2.5 weeks</td>
+          <td>2.5 weeks</td>
+          <td><strong style="color:#059669;font-size:16px;">₹1.0L</strong></td>
+        </tr>
+        <tr>
+          <td><span class="phase-dot dot-p3"></span><strong>Phase 3 — Future</strong><br/><span style="font-size:12px;color:#6b7280;">Nice to Have · Intelligence layer</span></td>
+          <td>5</td>
+          <td>3 weeks</td>
+          <td>3 weeks</td>
+          <td><strong style="color:#7c3aed;font-size:16px;">₹1.15L</strong></td>
+        </tr>
+        <tr class="total-row">
+          <td>Total — All 3 Phases</td>
+          <td>31</td>
+          <td>~10.5 weeks</td>
+          <td>~10.5 weeks</td>
+          <td>₹3.75 Lakhs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOT IN SCOPE -->
+  <div class="section-header" style="margin-top:40px;">
+    <div class="section-icon" style="background:#f1f5f9;">🚫</div>
+    <div>
+      <h2>Not in Scope</h2>
+      <div class="section-sub">These are GSLF's responsibility or separately scoped items</div>
+    </div>
+  </div>
+
+  <div class="understand-card">
+    <div class="nis-grid">
+      <div class="nis-item">All website content — copy, text, course descriptions, about us, success stories</div>
+      <div class="nis-item">SEO city page content writing (template provided, GSLF writes)</div>
+      <div class="nis-item">Blog article writing</div>
+      <div class="nis-item">Hindi translations for all pages</div>
+      <div class="nis-item">Chatbot AI / NLP backend development</div>
+      <div class="nis-item">Zoho CRM account setup & configuration</div>
+      <div class="nis-item">WhatsApp Business API account setup</div>
+      <div class="nis-item">Google Maps API key procurement</div>
+      <div class="nis-item">Annual Report production (content)</div>
+      <div class="nis-item">Hindi content translation / copywriting</div>
+      <div class="nis-item">Student success story photography</div>
+      <div class="nis-item">FGSPL website redesign (separate scope)</div>
+      <div class="nis-item">Mobile app development</div>
+      <div class="nis-item">Third-party hosting / domain fees</div>
+      <div class="nis-item">Mailchimp / Brevo subscription fees</div>
+      <div class="nis-item">Google Maps API usage charges</div>
+    </div>
+  </div>
+
+  <!-- ASSUMPTIONS -->
+  <div class="section-header">
+    <div class="section-icon" style="background:#ecfdf5;">📌</div>
+    <div>
+      <h2>Key Assumptions</h2>
+      <div class="section-sub">This estimate is valid under the following conditions</div>
+    </div>
+  </div>
+
+  <div class="assume-card">
+    <ul class="assume-list">
+      <li>All content listed in BRD Section 10 (success stories, photos, course data, batch schedules, team bios, financials) is delivered by GSLF before development begins. No content = no go-live.</li>
+      <li>GSLF will provide a dedicated internal point of contact for weekly reviews and content approvals throughout Phase 1.</li>
+      <li>Hindi translations for student and course pages are provided by GSLF's internal team. We build the toggle infrastructure; GSLF provides the language content.</li>
+      <li>Zoho CRM account is active and accessible. GSLF's technology team handles Zoho configuration; we handle the website-side form integration.</li>
+      <li>WhatsApp Business API account is set up and verified by GSLF before WhatsApp handoff features go live.</li>
+      <li>Google Maps API key is provisioned by GSLF. API usage charges are billed directly to GSLF's account.</li>
+      <li>Estimate is based on BRD v2.1 scope. Any new requirements added post-sign-off will be quoted separately.</li>
+      <li>All prices are exclusive of GST (18%). Hosting, domain, and third-party software subscription costs are additional.</li>
+      <li>This estimate is valid for 30 days from the date of submission.</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <p>GSLF Website Redesign — Project Estimate · Prepared July 2026 · Confidential · Based on BRD v2.1</p>
+    <p style="margin-top:6px;">This estimate is indicative. A detailed project plan and fixed-price proposal will follow after the discovery session.</p>
+  </div>
+
+</div>
+</body>
+</html>

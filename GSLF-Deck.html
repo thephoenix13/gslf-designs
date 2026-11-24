@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GSLF — Engagement Approach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900:#061f18; --green-800:#0d3b2e; --green-700:#145040; --green-600:#1c6852;
+    --green-400:#3da07f; --green-200:#a8dccb; --green-100:#d6f0e7; --green-50:#edf8f3;
+    --terra:#c85b2a; --terra-500:#d97445; --terra-700:#b83f1c; --terra-100:#fce8db; --terra-50:#fdf4ef;
+    --sand:#f6f4f0; --sand-2:#efece5; --ink:#1a1714; --charcoal:#2e2a25; --muted:#6b655c; --line:#e3ded4; --white:#fff;
+    --good:#2a7a4b; --good-50:#e8f5ee; --warn:#b87c0a; --warn-50:#fef6e0; --bad:#b82a2a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:var(--charcoal); background:#e7e3da; -webkit-font-smoothing:antialiased; letter-spacing:-.005em; }
+  .deck { height:100vh; overflow:hidden; }
+  .slide { display:none; height:100vh; width:100vw; padding:6vh 7vw; flex-direction:column; justify-content:center; position:relative; background:var(--white); overflow:hidden; }
+  .slide.active { display:flex; }
+  .slide.sand { background:var(--sand); }
+  .hero { background: radial-gradient(120% 80% at 78% 18%, var(--green-50) 0%, rgba(237,248,243,0) 55%), radial-gradient(90% 70% at 12% 92%, var(--terra-50) 0%, rgba(253,244,239,0) 50%), var(--white); }
+  .eyebrow { text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; color:var(--terra); margin-bottom:1.1rem; }
+  h1 { font-size:4.2rem; line-height:1.04; font-weight:800; color:var(--green-800); letter-spacing:-.03em; }
+  h2 { font-size:2.7rem; line-height:1.08; font-weight:800; color:var(--green-800); letter-spacing:-.02em; margin-bottom:1.4rem; }
+  h3 { font-size:1.2rem; font-weight:700; color:var(--green-700); letter-spacing:-.01em; }
+  p { font-size:1.22rem; line-height:1.6; color:var(--charcoal); max-width:62ch; }
+  p.lead { font-size:1.5rem; line-height:1.5; color:var(--muted); max-width:54ch; }
+  .hero h1 { font-size:4.7rem; }
+  .hero .tag { font-size:1.45rem; color:var(--muted); margin-top:1.4rem; max-width:50ch; line-height:1.45; }
+  .muted { color:var(--muted); }
+  .accent { color:var(--terra); }
+  .grn { color:var(--green-700); }
+  .cols { display:grid; grid-template-columns:1.05fr .95fr; gap:3rem; align-items:center; }
+  .cols-top { align-items:start; }
+  .cols-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin-top:.4rem; }
+  .cols-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:.4rem; }
+  .cols-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:.4rem; }
+  .card { background:var(--white); border:1px solid var(--line); border-radius:16px; padding:1.5rem 1.45rem; box-shadow:0 1px 2px rgba(0,0,0,.03); }
+  .slide.sand .card { background:#fff; }
+  .card .ico { width:44px;height:44px;border-radius:11px;background:var(--green-50);color:var(--green-700);display:grid;place-items:center;font-size:1.35rem;margin-bottom:.85rem; }
+  .card h3 { margin-bottom:.4rem; }
+  .card p { font-size:1.02rem; color:var(--muted); line-height:1.5; }
+  .pill { display:inline-flex; align-items:center; gap:.5rem; background:var(--green-50); color:var(--green-700); border:1px solid var(--green-100); border-radius:999px; padding:.4rem 1rem; font-size:.95rem; font-weight:600; }
+  .pill-sm { font-size:.74rem; padding:.22rem .65rem; }
+  .badge-row { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem; }
+  .step { display:flex; gap:1.1rem; align-items:flex-start; margin-bottom:1.25rem; }
+  .step .num { flex:none; width:46px;height:46px;border-radius:12px; background:var(--green-800); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.2rem; }
+  .step h3 { margin-bottom:.15rem; }
+  .step p { font-size:1.08rem; color:var(--muted); }
+  ul.feat { list-style:none; margin-top:.4rem; }
+  ul.feat li { font-size:1.02rem; padding:.45rem 0 .45rem 2rem; position:relative; color:var(--charcoal); }
+  ul.feat li::before { content:"✓"; position:absolute; left:0; color:var(--green-400); font-weight:800; }
+  ul.cross { list-style:none; }
+  ul.cross li { font-size:1.02rem; padding:.45rem 0 .45rem 1.8rem; position:relative; color:var(--muted); }
+  ul.cross li::before { content:"✕"; position:absolute; left:0; color:var(--bad); font-weight:800; }
+  .stat { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.6rem 1.5rem; }
+  .stat .big { font-size:3.4rem; font-weight:900; color:var(--green-800); line-height:1; letter-spacing:-.04em; }
+  .stat .big .unit { font-size:1.6rem; font-weight:800; color:var(--terra); }
+  .stat .lbl { margin-top:.6rem; font-size:1rem; color:var(--muted); line-height:1.4; }
+  .stat.feature { background:var(--green-800); border-color:var(--green-800); }
+  .stat.feature .big, .stat.feature .lbl { color:#fff; }
+  .stat.feature .big .unit { color:var(--terra-100); }
+  .callout { border-left:4px solid var(--terra); background:var(--terra-50); border-radius:0 14px 14px 0; padding:1.1rem 1.3rem; }
+  .callout p { font-size:1.05rem; color:var(--green-800); font-weight:600; line-height:1.55; margin:0; max-width:none; }
+  .gap-card { display:flex; gap:1rem; align-items:flex-start; padding:1rem 1.1rem; background:#fff; border:1px solid var(--line); border-radius:14px; }
+  .gap-n { flex:none; width:36px; height:36px; border-radius:50%; background:var(--green-800); color:#fff; font-weight:800; font-size:1rem; display:grid; place-items:center; }
+  .gap-title { font-size:1.02rem; font-weight:700; color:var(--green-800); margin-bottom:.25rem; }
+  .gap-desc { font-size:.9rem; color:var(--muted); line-height:1.45; }
+  .phase-blk { border-radius:14px; overflow:hidden; margin-bottom:1rem; }
+  .phase-hd { display:flex; align-items:center; gap:1rem; background:var(--green-800); padding:.9rem 1.2rem; }
+  .phase-hd .num { font-size:1.7rem; font-weight:900; color:rgba(255,255,255,.25); min-width:44px; }
+  .phase-hd .ttl { font-size:1.1rem; font-weight:700; color:#fff; }
+  .phase-hd .sub { font-size:.82rem; color:var(--green-200); margin-top:.15rem; }
+  .phase-body { padding:.8rem 1.2rem; background:var(--sand); }
+  .req-table { display:flex; flex-direction:column; gap:.35rem; margin-top:.4rem; }
+  .req-row { display:grid; grid-template-columns:1.6rem 1.4fr auto 2.6fr; gap:.5rem 1rem; align-items:center; padding:.52rem .9rem; background:#fff; border:1px solid var(--line); border-radius:10px; }
+  .req-check { color:var(--good); font-size:1.1rem; font-weight:800; }
+  .req-name { font-size:.98rem; font-weight:700; color:var(--green-800); }
+  .req-phases { display:flex; gap:.3rem; flex-wrap:wrap; }
+  .req-phases .ph { font-size:.7rem; font-weight:700; background:var(--terra-50); color:var(--terra); border:1px solid var(--terra-100); border-radius:999px; padding:.18rem .55rem; white-space:nowrap; }
+  .req-deliver { font-size:.87rem; color:var(--muted); line-height:1.45; }
+  .new-tag { display:inline-flex; align-items:center; gap:.3rem; background:var(--warn-50); color:var(--warn); border:1px solid #f0d26a; border-radius:999px; padding:.2rem .75rem; font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; vertical-align:middle; margin-left:.6rem; }
+  .new-tag::before { content:"★ "; font-size:.65rem; }
+  .fn-new { color:var(--warn); font-weight:700; }
+  .gantt { display:flex; flex-direction:column; gap:.45rem; margin-top:.5rem; }
+  .gantt-header { display:grid; grid-template-columns:13rem 1fr; gap:1rem; padding-bottom:.2rem; }
+  .gantt-weeks { display:flex; }
+  .gantt-wk { flex:1; text-align:center; font-size:.65rem; color:var(--muted); font-family:"DM Mono",monospace; }
+  .gantt-row { display:grid; grid-template-columns:13rem 1fr; align-items:center; gap:1rem; }
+  .gantt-lbl .ph-name { font-size:.92rem; font-weight:700; color:var(--green-800); }
+  .gantt-lbl .ph-dur { font-size:.75rem; color:var(--muted); margin-top:.1rem; }
+  .gantt-track { position:relative; height:1.9rem; background:var(--sand-2); border-radius:6px; overflow:hidden; }
+  .gantt-bar { position:absolute; top:0; bottom:0; border-radius:6px; display:flex; align-items:center; padding:0 .6rem; font-size:.72rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; }
+  .gb-green { background:var(--green-700); }
+  .gb-amber { background:var(--warn); }
+  .footnote { position:absolute; bottom:3.2vh; left:7vw; right:7vw; font-size:.78rem; color:var(--muted); display:flex; justify-content:space-between; align-items:center; }
+  .progress { position:fixed; top:0; left:0; height:3px; background:var(--green-700); z-index:60; transition:width .25s ease; }
+  .counter { position:fixed; bottom:20px; left:24px; color:var(--muted); font-size:.82rem; z-index:50; font-family:"DM Mono",monospace; }
+  .nav { position:fixed; bottom:16px; right:22px; display:flex; gap:8px; z-index:50; }
+  .nav button { background:#fff; border:1px solid var(--line); color:var(--green-800); border-radius:9px; width:40px;height:40px; font-size:1.2rem; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .nav button:hover { background:var(--green-50); }
+  .q-col { display:flex; flex-direction:column; gap:.5rem; }
+  .logo { display:inline-flex; align-items:center; gap:.55rem; font-weight:800; font-size:1.25rem; color:var(--green-800); }
+  @media print {
+    @page { size:1280px 720px; margin:0; }
+    body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .deck { height:auto; overflow:visible; }
+    .slide {
+      display:flex !important;
+      width:1280px; height:720px; max-height:720px;
+      padding:44px 90px;
+      overflow:hidden;
+      break-after:page; page-break-after:always; page-break-inside:avoid;
+      box-sizing:border-box;
+    }
+    .hero {
+      background:
+        radial-gradient(120% 80% at 78% 18%, var(--green-50) 0%, rgba(237,248,243,0) 55%),
+        radial-gradient(90% 70% at 12% 92%, var(--terra-50) 0%, rgba(253,244,239,0) 50%),
+        var(--white) !important;
+    }
+    .nav,.counter,.progress { display:none; }
+    /* Tighten dense slides so nothing clips */
+    h2 { font-size:2.1rem; margin-bottom:.85rem; }
+    .gap-card { padding:.5rem .75rem !important; }
+    .gap-title { font-size:.94rem; }
+    .gap-desc { font-size:.83rem; line-height:1.38; }
+    .req-row { padding:.35rem .75rem !important; }
+    .req-table { gap:.28rem !important; }
+    .req-name { font-size:.9rem; }
+    .req-deliver { font-size:.78rem; line-height:1.38; }
+    .req-phases .ph { font-size:.65rem; }
+    .phase-body { padding:.6rem 1rem; }
+    ul.feat li { font-size:.95rem; padding:.32rem 0 .32rem 2rem; }
+    .card p { font-size:.93rem; }
+    .footnote { bottom:18px; left:90px; right:90px; font-size:.68rem; }
+
+    /* ── Slide 11: Discovery Questions ── */
+    #slide-questions h2 { font-size:1.75rem !important; margin-bottom:.45rem !important; }
+    #slide-questions .cols { gap:1.6rem !important; }
+    #slide-questions .cols > div > div:first-child { margin-bottom:.4rem !important; }
+    #slide-questions .gap-card { padding:.42rem .7rem !important; gap:.65rem !important; }
+    #slide-questions .gap-n { width:26px !important; height:26px !important; font-size:.72rem !important; }
+    #slide-questions .gap-title { font-size:.82rem !important; }
+    #slide-questions .gap-desc { font-size:.75rem !important; line-height:1.32 !important; }
+    #slide-questions .q-col { gap:.32rem !important; }
+
+    /* ── Slide 13: Requirements Map ── */
+    #slide-requirements h2 { font-size:1.75rem !important; margin-bottom:.45rem !important; }
+    #slide-requirements .req-table { gap:.22rem !important; }
+    #slide-requirements .req-row { padding:.28rem .65rem !important; }
+    #slide-requirements .req-name { font-size:.84rem !important; }
+    #slide-requirements .req-deliver { font-size:.74rem !important; line-height:1.32 !important; }
+    #slide-requirements .req-phases .ph { font-size:.6rem !important; padding:.12rem .4rem !important; }
+    #slide-requirements .req-check { font-size:.95rem !important; }
+    #slide-requirements .new-tag { font-size:.6rem !important; padding:.12rem .5rem !important; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck">
+
+  <!-- ── SLIDE 1: COVER ─────────────────────────────────────────────────── -->
+  <section class="slide hero active">
+    <div style="margin:auto 0; position:relative; z-index:1;">
+      <div class="eyebrow">Engagement Approach · June 2026</div>
+      <h1>From NGO Brochure<br/><span style="color:var(--terra);">to Skills Platform.</span></h1>
+      <p class="tag">A full redesign of gslfoundation.org — built to enroll students, attract employers, and earn CSR confidence.</p>
+      <div class="badge-row">
+        <span class="pill">Grey Sim Learnings Foundation</span>
+        <span class="pill">June 2026</span>
+        <span class="pill">Full Website Redesign</span>
+      </div>
+    </div>
+    <div class="footnote">
+      <span>Engagement Approach · Confidential</span>
+      <span>Based on live site audit (gslfoundation.org) &amp; BRD v2.1 · June 2026 &nbsp;|&nbsp; +91-9860430568</span>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 2: ABOUT GSLF ────────────────────────────────────────────── -->
+  <section class="slide sand">
+    <div class="eyebrow">About the client</div>
+    <h2>Who they are.</h2>
+    <div class="cols cols-top">
+      <div>
+        <p style="margin-bottom:1rem;">Grey Sim Learnings Foundation (GSLF) is a Section 8 nonprofit that trains 20,000+ underprivileged youth annually — girls, PWD, and rural communities — in vocational trades like RACW, Optical Fiber, EV, and 5G across 30+ centres in 12+ states.</p>
+        <p style="margin-bottom:1.4rem;">Founded in 2013, they've built a rare combination: CSR funding from HCL, HDFC, HSBC, and Tech Mahindra on one side — and direct hiring relationships with Voltas, LG, Whirlpool, and Panasonic on the other. An 80%+ placement rate backs it up.</p>
+        <div class="callout">
+          <p>GSLF has stronger employment outcomes than either Pratham or Quest Alliance — real salary data, real employers, real numbers. Their website just doesn't show any of it.</p>
+        </div>
+      </div>
+      <div>
+        <div class="cols-2" style="margin-top:0;">
+          <div class="card">
+            <div class="ico">🎓</div>
+            <h3>Students</h3>
+            <p>20,000+ trained per year. 80%+ placement. Courses in RACW, EV, Fiber, Drones, 3D Print. Salary outcomes: ₹8K–25K/month.</p>
+          </div>
+          <div class="card">
+            <div class="ico">🏭</div>
+            <h3>Employers</h3>
+            <p>Voltas, LG, Whirlpool, Panasonic, Haier, Blue Star hire directly from GSLF programs. WITP apprenticeship linkage in 12+ states.</p>
+          </div>
+          <div class="card">
+            <div class="ico">🤝</div>
+            <h3>Donors &amp; CSR</h3>
+            <p>HCL, HDFC, HSBC, Tech Mahindra, Tata, Genpact, GIZ. Registered 80G, FCRA valid to 2028, CSR00000153.</p>
+          </div>
+          <div class="card">
+            <div class="ico">🏛️</div>
+            <h3>Govt Partners</h3>
+            <p>NSDC, NCVET, TISS, Skill India. 9 ITI transformation programs. 60 Atal Tinkering Labs. State MoUs active.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>gslfoundation.org</span><span>Sources: gslfoundation.org (live audit) · /who-we-are · /media · /company-details · /our-team · /donate · BRD v2.1 Sec.2</span></div>
+  </section>
+
+  <!-- ── SLIDE 3: GAP ANALYSIS 1/2 ─────────────────────────────────────── -->
+  <section class="slide sand">
+    <div class="eyebrow">Current website — gap analysis · 1 of 2</div>
+    <h2>Five gaps on the surface.</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:.8rem;">
+      <div class="gap-card">
+        <div class="gap-n">1</div>
+        <div>
+          <div class="gap-title">Impact counters show "0+"</div>
+          <div class="gap-desc">The homepage displays animated counters that never load. Donors and partners see zero trained, zero placed, zero labs. A CSR manager leaves in under 10 seconds.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">2</div>
+        <div>
+          <div class="gap-title">The enrollment form doesn't capture leads</div>
+          <div class="gap-desc">Phone number is not required. No state/city field. No education qualification. No attribution. No confirmation. It collects names — not leads. Zoho receives nothing actionable.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">3</div>
+        <div>
+          <div class="gap-title">Zero employer-facing content</div>
+          <div class="gap-desc">No employer landing page. No hiring process. No apprenticeship details. No Request Talent form. GSLF's biggest differentiator vs Pratham and Quest Alliance doesn't exist on the site.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">4</div>
+        <div>
+          <div class="gap-title">Course pages have no conversion data</div>
+          <div class="gap-desc">No expected salary. No batch dates. No hiring company logos. No career progression pathways. A student looking at RACW Technician has no reason to enroll over any alternative.</div>
+        </div>
+      </div>
+      <div class="gap-card" style="grid-column:1/-1;">
+        <div class="gap-n">5</div>
+        <div>
+          <div class="gap-title">WhatsApp — the actual conversion channel — doesn't exist on the site</div>
+          <div class="gap-desc">Every enrolled student likely came through WhatsApp. The website has no WhatsApp button, no counselor link, no deeplink. The top-of-funnel and the conversion channel are completely disconnected.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>Gap analysis · 1 of 2</span><span>Sources: Live site audit — homepage form fields · gslfoundation.org/career · BRD v2.1 Sec.4 (Current State Scores) · Sec.6.1–6.3</span></div>
+  </section>
+
+  <!-- ── SLIDE 4: GAP ANALYSIS 2/2 ─────────────────────────────────────── -->
+  <section class="slide">
+    <div class="eyebrow">Current website — gap analysis · 2 of 2</div>
+    <h2>Five more. Deeper and costlier.</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-bottom:1.1rem;">
+      <div class="gap-card">
+        <div class="gap-n">6</div>
+        <div>
+          <div class="gap-title">Success stories have no salary data or photos</div>
+          <div class="gap-desc">Three text-only case studies from 2023. No photos, no before/after salary, no employer named prominently. Pratham's version is stronger — and GSLF's stories are actually better.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">7</div>
+        <div>
+          <div class="gap-title">About Us earns zero donor confidence</div>
+          <div class="gap-desc">No audited financials. No Annual Report. No board governance section. No MoU list. Pratham publishes 10 years of financials. GSLF publishes certificates in a dropdown.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">8</div>
+        <div>
+          <div class="gap-title">News section actively damages credibility</div>
+          <div class="gap-desc">Three placeholder blog posts from 2019 — visible to every visitor. Copyright footer reads 2023. The signal: nobody is looking after this site.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">9</div>
+        <div>
+          <div class="gap-title">GSLF and FGSPL are invisible to each other</div>
+          <div class="gap-desc">FGSPL (funfirst.in) runs the same mission, same courses, same locations — with zero cross-linking to GSLF. Donors researching GSLF can't find the commercial arm. Students can't navigate between them.</div>
+        </div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-n">10</div>
+        <div>
+          <div class="gap-title">Hindi, interactive map, and SEO pages all missing</div>
+          <div class="gap-desc">Primary student audience is Hindi-speaking. Center locator is a text list. No city-level SEO pages for "EV Technician Course Pune" or "Free Training Chennai." Organic traffic is near zero.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <p>The current site is underperforming at every stage — discovery (no SEO), evaluation (no salary data, no proof), and conversion (broken form, no WhatsApp). This is not a cosmetic redesign.</p>
+    </div>
+    <div class="footnote"><span>Gap analysis · 2 of 2</span><span>Sources: gslfoundation.org/media · BRD v2.1 Sec.4 · funfirst.in (live audit — zero cross-links confirmed) · Pratham.org benchmark · BRD v2.1 Sec.8 (SEO)</span></div>
+  </section>
+
+  <!-- ── SLIDE 5: WHY US ────────────────────────────────────────────────── -->
+  <section class="slide">
+    <div class="eyebrow">Why us</div>
+    <h2>We are familiar with this.</h2>
+    <div class="cols-2" style="margin-top:.6rem; gap:.8rem;">
+      <div class="card" style="padding:.85rem 1.1rem; display:flex; gap:.85rem; align-items:flex-start;">
+        <div class="ico" style="margin-bottom:0; flex-shrink:0; width:38px; height:38px; font-size:1.1rem;">🌐</div>
+        <div><h3 style="margin-bottom:.2rem;">Web &amp; Digital</h3><p style="font-size:.92rem; max-width:none;">Full-stack websites, CMS builds, design systems, and mobile-first responsive builds for social impact, education, and B2B clients.</p></div>
+      </div>
+      <div class="card" style="padding:.85rem 1.1rem; display:flex; gap:.85rem; align-items:flex-start;">
+        <div class="ico" style="margin-bottom:0; flex-shrink:0; width:38px; height:38px; font-size:1.1rem;">📱</div>
+        <div><h3 style="margin-bottom:.2rem;">Apps &amp; Software</h3><p style="font-size:.92rem; max-width:none;">Custom applications, student portals, employer portals, and multi-role platforms built for non-technical teams to operate independently.</p></div>
+      </div>
+      <div class="card" style="padding:.85rem 1.1rem; display:flex; gap:.85rem; align-items:flex-start;">
+        <div class="ico" style="margin-bottom:0; flex-shrink:0; width:38px; height:38px; font-size:1.1rem;">🤖</div>
+        <div><h3 style="margin-bottom:.2rem;">AI Implementations</h3><p style="font-size:.92rem; max-width:none;">Course-finding chatbots, lead-qualification bots, WhatsApp handoff flows, and Zoho CRM integrations in production environments.</p></div>
+      </div>
+      <div class="card" style="padding:.85rem 1.1rem; display:flex; gap:.85rem; align-items:flex-start;">
+        <div class="ico" style="margin-bottom:0; flex-shrink:0; width:38px; height:38px; font-size:1.1rem;">🔗</div>
+        <div><h3 style="margin-bottom:.2rem;">Agents &amp; Automation</h3><p style="font-size:.92rem; max-width:none;">Multi-step pipelines, CRM automation, lead routing, and content update workflows that non-technical teams can run without a developer on call.</p></div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:.8rem; padding:.85rem 1.15rem;">
+      <p>We've built student enrollment platforms, employer lead portals, and WhatsApp-integrated lead flows for the education and skilling space. The gap between where GSLF is today and where the BRD wants to go is exactly the kind of project we run.</p>
+    </div>
+    <div style="margin-top:.75rem;">
+      <div style="font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.6rem;">Domains we've worked in</div>
+      <div class="badge-row" style="margin-top:0; gap:.4rem;">
+        <span class="pill pill-sm">EdTech</span>
+        <span class="pill pill-sm">HR Tech &amp; Recruitment</span>
+        <span class="pill pill-sm">Social Impact &amp; NGO</span>
+        <span class="pill pill-sm">Healthcare &amp; Health Tech</span>
+        <span class="pill pill-sm">FinTech &amp; Trading</span>
+        <span class="pill pill-sm">SaaS Platforms</span>
+        <span class="pill pill-sm">E-commerce</span>
+        <span class="pill pill-sm">Professional Services</span>
+        <span class="pill pill-sm">Logistics</span>
+        <span class="pill pill-sm">Real Estate</span>
+      </div>
+    </div>
+    <div class="footnote"><span>Websites · Apps · Software · AI · Agents</span><span>Source: Perfect Skills portfolio &amp; domain experience · BRD v2.1 Sec.12 (Vendor Evaluation Criteria — Portfolio 25%, Mobile 20%, SEO 20%)</span></div>
+  </section>
+
+  <!-- ── SLIDE 6: OUR APPROACH ──────────────────────────────────────────── -->
+  <section class="slide sand">
+    <div class="eyebrow">How we work</div>
+    <h2 style="margin-bottom:.9rem;">Six stages. No surprises.</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">1</div>
+          <h3 style="margin-bottom:0;">Discovery</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">Two 2-hour sessions. Strategy, audiences, systems, and content readiness. We listen before we design. Deliverable: Discovery Summary document.</p>
+      </div>
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">2</div>
+          <h3 style="margin-bottom:0;">Proposal &amp; Scope</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">Clear phased scope, integration map, content readiness checklist with named owners, and a phased investment summary. No development begins until content is 80% ready.</p>
+      </div>
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">3</div>
+          <h3 style="margin-bottom:0;">Brand &amp; Design</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">Mobile-first always. Two brand direction options. Benchmarked against Pratham.org and QuestAlliance.net. Homepage approved before any other page begins.</p>
+      </div>
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">4</div>
+          <h3 style="margin-bottom:0;">Development</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">2-week sprints. Staging URL after each sprint. Custom WordPress theme — no heavy builders. Admin panel so your team updates counters, courses, and stories without calling us.</p>
+      </div>
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">5</div>
+          <h3 style="margin-bottom:0;">Launch</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">Pre-launch checklist: all forms tested to Zoho, WhatsApp button live, Hindi toggle verified, India map populated, page speed under 3 sec on 4G, 301 redirects mapped.</p>
+      </div>
+      <div class="card" style="padding:1.1rem 1.2rem;">
+        <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1rem;flex-shrink:0;">6</div>
+          <h3 style="margin-bottom:0;">Post-Launch Support</h3>
+        </div>
+        <p style="font-size:.93rem; color:var(--muted);">6-month retainer. Monthly analytics report to CTO, Operations, and Programs teams. Bug fixes with defined SLA. One content update round per month included.</p>
+      </div>
+    </div>
+    <div class="footnote"><span>Our engagement model</span><span>Source: Perfect Skills engagement methodology · Informed by BRD v2.1 Sec.10 (Content Responsibility), Sec.13 (Assumptions), Sec.16 (KPIs)</span></div>
+  </section>
+
+  <!-- ── SLIDE 7: SCOPE OVERVIEW ────────────────────────────────────────── -->
+  <section class="slide sand">
+    <div class="eyebrow">Scope of work</div>
+    <h2>Six phases. One complete platform.</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:.4rem;">
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>01 · Discovery &amp; Strategy</h3>
+        <p>Audience sessions, content readiness audit, system mapping, FGSPL coordination plan, Analytics review.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>02 · Brand &amp; Design</h3>
+        <p>Brand direction, design system, all page templates — mobile-first. Benchmarked vs Pratham and Quest Alliance.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>03 · Development &amp; CMS</h3>
+        <p>Full build: Homepage, Student Portal, Employer Portal, Success Stories, Impact Dashboard, Donor Section, About Us, Careers.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>04 · Integrations &amp; Connections</h3>
+        <p>Zoho webhooks, WhatsApp deeplinks, GA4, Newsletter, India map, Chatbot UI — plus 301 redirects &amp; DPDP privacy page <span class="new-tag">Our addition</span></p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>05 · SEO &amp; Hindi</h3>
+        <p>City-level SEO pages (8 trades × 14 cities), schema markup, Search Console, sitemap. Hindi toggle on Student and Courses pages.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--terra);">
+        <h3>06 · Launch &amp; Support</h3>
+        <p>Pre-launch checklist, CMS training for your team, DNS cutover, 6-month retainer with monthly analytics reporting.</p>
+      </div>
+    </div>
+    <div class="footnote"><span>Sources: BRD v2.1 Sec.6 (Functional Req.) · Sec.7 (NFR) · Sec.14 (Out of Scope) · DPDP Act 2023</span><span class="fn-new">★ Two items in Phase 04 are our additions: 301 redirect map + DPDP Act 2023 privacy page — everything else is from the BRD</span></div>
+  </section>
+
+  <!-- ── SLIDE 8: PHASES 01 & 02 ────────────────────────────────────────── -->
+  <section class="slide">
+    <div class="eyebrow">Scope of work · Phases 01 &amp; 02</div>
+    <h2>Understand before designing.</h2>
+    <div class="cols-2" style="gap:1.5rem;">
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">01</div>
+            <div>
+              <div class="ttl">Discovery &amp; Strategy</div>
+              <div class="sub">Two structured sessions · Before a pixel is designed</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>Session 1: Strategy, 4-audience priority, WITP journey mapping</li>
+              <li>Session 2: Content readiness, Zoho status, FGSPL coordination decision</li>
+              <li>Google Analytics access — current visitor breakdown reviewed</li>
+              <li>Content readiness checklist: Lubna, Shani, HR, Finance, Placement team</li>
+              <li>Integration map: Website → Zoho → WhatsApp → GA4 → Chatbot</li>
+              <li>FGSPL design coordination plan — same vendor or style guide handoff</li>
+              <li>Deliverable: Discovery Summary (3–5 pages, approved before design starts)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">02</div>
+            <div>
+              <div class="ttl">Brand &amp; Design</div>
+              <div class="sub">Mobile-first · Runs in parallel with early development</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>Brand direction deck — 2 options (FGSPL color alignment considered)</li>
+              <li>Homepage: hero, 3 CTAs, counters, student journey, logo wall, stories</li>
+              <li>Student Portal: course page template with salary + batch + hiring logos</li>
+              <li>Employer Portal: landing page + Request Talent form</li>
+              <li>Success Stories: card layout, photo treatment, salary callout</li>
+              <li>Impact Dashboard: animated counters + interactive India map design</li>
+              <li>Chatbot widget and WhatsApp deeplink flow design</li>
+              <li>Admin panel design — non-technical CMS for Shani, Lubna, HR</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>Phases 01 + 02</span><span>Sources: BRD v2.1 Sec.6.1 (Homepage) · Sec.6.2 (Student Portal) · Sec.6.9 (GSLF–FGSPL) · Sec.10 (Content Responsibility — Lubna, Shani) · Sec.13 (Assumptions)</span></div>
+  </section>
+
+  <!-- ── SLIDE 9: PHASES 03 & 04 ────────────────────────────────────────── -->
+  <section class="slide sand">
+    <div class="eyebrow">Scope of work · Phases 03 &amp; 04</div>
+    <h2>Build and connect.</h2>
+    <div class="cols-2" style="gap:1.5rem;">
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">03</div>
+            <div>
+              <div class="ttl">Development &amp; CMS</div>
+              <div class="sub">Custom WordPress · Longest phase · Runs in parallel with design</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>Custom WordPress theme — no heavy page builders</li>
+              <li>Homepage, Student Portal, Employer Portal, Success Stories</li>
+              <li>Impact Dashboard with editable counters + editable ticker</li>
+              <li>Donor section: financials, Annual Report, CSR enquiry form</li>
+              <li>About Us: governance, board, MoUs, GSLF–FGSPL disclosure</li>
+              <li>Careers: editable job listings, application flow</li>
+              <li>Admin panel: non-technical update for all impact data, courses, stories</li>
+              <li>Staging URL + annotated walkthrough video after every sprint</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">04</div>
+            <div>
+              <div class="ttl">Integrations &amp; Connections</div>
+              <div class="sub">We deliver endpoints + UI · GSLF configures backend workflows</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>Zoho CRM webhook endpoints on all 5 lead forms — BRD Sec.6.3, 6.6, 6.10, Sec.7</li>
+              <li>WhatsApp deeplink sticky button — all pages, pre-filled counselor message — BRD Sec.6.2</li>
+              <li>Google Analytics 4 — conversion events, shared access CTO + Ops + Programs — BRD Sec.7</li>
+              <li>Mailchimp / Brevo newsletter integration — BRD Sec.6.6, 6.10</li>
+              <li>Google Maps API — interactive India center map — BRD Sec.6.5</li>
+              <li>Chatbot UI + decision-tree flow + WhatsApp handoff — BRD Sec.6.10</li>
+              <li>301 redirect map — all existing URLs preserved for SEO <span class="new-tag">Our addition</span></li>
+              <li>DPDP Act 2023 privacy page + cookie consent — required for all 5 Zoho lead forms <span class="new-tag">Our addition</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>Sources: BRD v2.1 Sec.6.3, 6.5, 6.6, 6.10, Sec.7 (Zoho, WhatsApp, GA4, Maps, Chatbot, Newsletter all from BRD) · DPDP Act 2023 · Google Search Central (301 redirects)</span><span class="fn-new">★ Our two additions: 301 redirect map + DPDP Act 2023 privacy page — all other integrations are BRD requirements</span></div>
+  </section>
+
+  <!-- ── SLIDE 10: PHASES 05 & 06 ───────────────────────────────────────── -->
+  <section class="slide">
+    <div class="eyebrow">Scope of work · Phases 05 &amp; 06</div>
+    <h2>Rank. Launch. Stay.</h2>
+    <div class="cols-2" style="gap:1.5rem;">
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">05</div>
+            <div>
+              <div class="ttl">SEO, Hindi &amp; Launch</div>
+              <div class="sub">Final phase · Go-live gated on content readiness</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>City-level SEO pages: 8 trades × 14 cities (RACW, EV, Fiber, 5G, Drone…)</li>
+              <li>Each page: unique meta title, H1, 500+ words original content</li>
+              <li>Schema markup: Organization, Course, LocalBusiness on all pages</li>
+              <li>Hindi toggle — Student Portal + Courses pages (GSLF provides translation)</li>
+              <li>Google Search Console + Bing Webmaster Tools + sitemap submitted</li>
+              <li>Pre-launch checklist: all forms → Zoho tested, WhatsApp live, page speed &lt;3s on 4G</li>
+              <li>Mobile tested on 3 low-end Android devices</li>
+              <li>Content gate enforced — no Lorem Ipsum, no "0+", no 2019 posts at go-live</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="phase-blk">
+          <div class="phase-hd">
+            <div class="num">06</div>
+            <div>
+              <div class="ttl">Post-Launch Support</div>
+              <div class="sub">6-month retainer · Monthly cadence</div>
+            </div>
+          </div>
+          <div class="phase-body">
+            <ul class="feat">
+              <li>Monthly analytics report: sessions, time on page, lead source, WhatsApp initiations</li>
+              <li>Report shared with CTO, Operations, and Program teams</li>
+              <li>Bug SLA: P1 (site down) 48hr · P2 (broken feature) 5 days · P3 minor next sprint</li>
+              <li>One content update round/month: success story publish, counter update support</li>
+              <li>30-min monthly check-in call with CTO</li>
+              <li>CMS training: Shani (impact numbers), Lubna (success stories), HR (job listings)</li>
+            </ul>
+            <p style="font-size:.85rem; color:var(--muted); margin-top:.8rem; max-width:none;">Not included in retainer: new feature development, Zoho CRM workflow changes, chatbot AI changes — scoped separately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>Phases 05 + 06</span><span>Sources: BRD v2.1 Sec.7 (NFR — Hindi, mobile, speed) · Sec.8 (SEO — 8 trade types × cities) · Sec.16 (KPIs — 10 metrics from Day 1) · Sec.12 (Vendor Eval — Post-launch 10%)</span></div>
+  </section>
+
+  <!-- ── SLIDE 11: DISCOVERY QUESTIONS ─────────────────────────────────── -->
+  <section class="slide sand" id="slide-questions">
+    <div class="eyebrow">Discovery · What we'll bring to the room</div>
+    <h2 style="margin-bottom:.85rem;">The questions that unlock this project.</h2>
+    <div class="cols cols-top" style="gap:2.5rem;">
+      <div>
+        <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--terra); margin-bottom:.65rem;">Strategy &amp; Architecture</div>
+        <div class="q-col">
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">01</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Who's actually visiting the site today?</div><div class="gap-desc">We need Google Analytics access — visitor breakdown before designing for 4 audiences.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">02</div>
+            <div><div class="gap-title" style="font-size:.92rem;">What is WITP — walk us through the student journey.</div><div class="gap-desc">Your biggest differentiator vs Pratham and Quest. We need to understand it to design the right pages.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">03</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Where does GSLF end and FGSPL begin for a student?</div><div class="gap-desc">funfirst.in and gslfoundation.org have zero cross-linking today. What's the intended student journey across both?</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">04</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Is FGSPL's website also being redesigned — same vendor or different?</div><div class="gap-desc">The BRD requires consistent UX across both sites. This is only achievable with a design system handoff or a single vendor.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">05</div>
+            <div><div class="gap-title" style="font-size:.92rem;">FGSPL is blue/teal. Does GSLF inherit this or go its own direction?</div><div class="gap-desc">Color system decision determines whether the "consistent UX" requirement is achievable from day one of design.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">06</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Is there a go-live target and a budget range?</div><div class="gap-desc">The BRD has no dates and no budget. We need both to scope correctly and protect your timeline.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--terra); margin-bottom:.65rem;">Content, Systems &amp; Readiness</div>
+        <div class="q-col">
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">07</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Are any of the 5 success stories already written?</div><div class="gap-desc">Lubna is named as owner. Do students have signed photo consent? This is the longest lead-time content item.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">08</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Where do impact numbers live — spreadsheet, Zoho, or a manual count?</div><div class="gap-desc">Shani owns the update. We need to know the source system to design the right admin workflow.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">09</div>
+            <div><div class="gap-title" style="font-size:.92rem;">When will the Annual Report FY25-26 be ready?</div><div class="gap-desc">Listed as TBD by Operations + Finance. If this isn't ready, the Donor section launches with a placeholder — not empty.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">10</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Is Zoho CRM live and receiving leads today, or is this new?</div><div class="gap-desc">Every lead form on the new site flows to Zoho. If the CRM isn't configured, we deliver endpoints that go nowhere.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">11</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Is the Devjit's team resourced for Zoho + WhatsApp API setup?</div><div class="gap-desc">Both are out of vendor scope. If they're not set up before go-live testing, chatbot leads vanish and WhatsApp doesn't fire.</div></div>
+          </div>
+          <div class="gap-card" style="padding:.65rem .9rem;">
+            <div class="gap-n" style="width:30px;height:30px;font-size:.8rem;">12</div>
+            <div><div class="gap-title" style="font-size:.92rem;">Do Center HODs submit batch schedules anywhere today?</div><div class="gap-desc">The BRD requires batch dates per center, pan-India. If there's no existing process, this needs to be designed before development begins.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footnote"><span>Discovery questions</span><span>Sources: BRD v2.1 (all sections, incl. v2.1 additions) · Live site audit · funfirst.in cross-audit · Pratham.org + QuestAlliance.net competitive benchmarks · BRD Sec.15</span></div>
+  </section>
+
+  <!-- ── SLIDE 13: ASSUMPTIONS & OUT OF SCOPE ───────────────────────────── -->
+  <section class="slide">
+    <div class="eyebrow">Assumptions &amp; boundaries</div>
+    <h2>What we need from you. What this doesn't include.</h2>
+    <div class="cols-2" style="gap:2rem;">
+      <div>
+        <h3 style="margin-bottom:.8rem;">We're counting on —</h3>
+        <ul class="feat">
+          <li>CEO + COO sign-off on BRD before project kickoff</li>
+          <li>Content readiness checklist 80% complete before development begins</li>
+          <li>Zoho CRM webhook URL confirmed before form development</li>
+          <li>WhatsApp Business API account set up by GSLF before sprint 2</li>
+          <li>Google Maps API key provided by GSLF before sprint 3</li>
+          <li>FGSPL design coordination decision made before brand direction begins</li>
+          <li>Hindi translations provided by GSLF team (vendor optimizes, not translates)</li>
+          <li>All center addresses, batch schedules, and course salary data provided before dev</li>
+          <li>Annual Report FY25-26 provided before Donor section goes live</li>
+          <li>Feedback within 3 business days per sprint review cycle</li>
+          <li>One primary point of contact (Devjit Gupta) for all technical approvals</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.8rem;">Out of scope —</h3>
+        <ul class="cross">
+          <li>Chatbot AI development and intent configuration (GSLF internal)</li>
+          <li>Zoho CRM workflow, lead routing, and assignment rules (GSLF internal)</li>
+          <li>WhatsApp Business API backend setup (GSLF internal)</li>
+          <li>Student login portal (Phase 3 per BRD)</li>
+          <li>Job board and placement tracking system (Phase 3 per BRD)</li>
+          <li>Mobile app development</li>
+          <li>Video production for success story testimonials</li>
+          <li>Hindi copywriting or translation services</li>
+          <li>Paid advertising or campaign setup</li>
+          <li>FGSPL website development (unless separately scoped)</li>
+          <li>Ongoing content creation post-launch (covered in retainer up to defined limit)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footnote"><span>Assumptions &amp; Boundaries</span><span>Sources: BRD v2.1 Sec.13 (Assumptions &amp; Dependencies) · Sec.14 (Out of Scope) · Sec.6.9 (GSLF–FGSPL req.) · Sec.6.10 (Chatbot — UI only, Zoho internal)</span></div>
+  </section>
+
+  <!-- ── SLIDE 13: REQUIREMENTS → DELIVERY MAP ──────────────────────────── -->
+  <section class="slide sand" id="slide-requirements">
+    <div class="eyebrow">BRD requirements — delivery map</div>
+    <h2 style="margin-bottom:.7rem;">What your BRD asked for. How we deliver it.</h2>
+    <div class="req-table">
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">Student Portal — salary, batches, career paths</div>
+        <div class="req-phases"><span class="ph">Ph 02</span><span class="ph">Ph 03</span></div>
+        <div class="req-deliver">Every course page: duration, eligibility, locations, salary range (e.g. ₹15K–25K), hiring company logos, upcoming batches, upskilling routes. Apply Now + WhatsApp CTA on every page.</div>
+      </div>
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">Employer Portal — Request Talent lead capture</div>
+        <div class="req-phases"><span class="ph">Ph 02</span><span class="ph">Ph 03</span><span class="ph">Ph 04</span></div>
+        <div class="req-deliver">Dedicated employer landing page with hiring process, apprenticeship + reskilling details, CSR partnership options. Request Talent form → Zoho CRM webhook. Currently zero employer content on site.</div>
+      </div>
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">Impact Dashboard — editable counters + India map</div>
+        <div class="req-phases"><span class="ph">Ph 03</span><span class="ph">Ph 04</span></div>
+        <div class="req-deliver">Animated counters (20K+ trained, 16K+ placed, 60+ labs, 100+ partners, 12+ states). Interactive India map — all centers. Admin panel: Shani updates all values without calling vendor. Hardcoded counters rejected.</div>
+      </div>
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">Success Stories — real photos, salary data, employer name</div>
+        <div class="req-phases"><span class="ph">Ph 02</span><span class="ph">Ph 03</span></div>
+        <div class="req-deliver">Minimum 5 at launch. Format: name + photo + location + course + before salary → after salary + employer. Searchable by trade/location/gender in Phase 2. Stronger than Pratham — salary data included.</div>
+      </div>
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">AI Chatbot UI — course finder, WhatsApp handoff</div>
+        <div class="req-phases"><span class="ph">Ph 03</span><span class="ph">Ph 04</span></div>
+        <div class="req-deliver">Decision-tree flow: Education → Location → Interest → Job goal → Course + nearest center. WhatsApp deeplink handoff. Zoho lead created on submission. Vendor delivers UI; GSLF team owns AI backend and Zoho config.</div>
+      </div>
+      <div class="req-row">
+        <div class="req-check">✅</div>
+        <div class="req-name">Donor Section — financials, Annual Report, CSR form</div>
+        <div class="req-phases"><span class="ph">Ph 02</span><span class="ph">Ph 03</span></div>
+        <div class="req-deliver">FCRA status, 80G, audited financials download (Pratham publishes 10 years — GSLF matches this standard). Annual Report PDF. Board + governance section. CSR enquiry form → Zoho. Newsletter signup.</div>
+      </div>
+      <div class="req-row" style="background:var(--warn-50); border-color:#f0d26a;">
+        <div class="req-check">✅</div>
+        <div class="req-name">URL Redirect Strategy (301 mapping) <span class="new-tag">Beyond BRD</span></div>
+        <div class="req-phases"><span class="ph">Ph 04</span><span class="ph">Ph 05</span></div>
+        <div class="req-deliver">Not in the BRD — we added this. The new navigation restructure changes every existing URL. Without 301 redirects, Without 301 redirects, existing backlinks from CSR partners and Google indexing break. SEO risk on a 20% evaluation criterion.</div>
+      </div>
+      <div class="req-row" style="background:var(--warn-50); border-color:#f0d26a;">
+        <div class="req-check">✅</div>
+        <div class="req-name">DPDP Act 2023 Privacy Compliance <span class="new-tag">Beyond BRD</span></div>
+        <div class="req-phases"><span class="ph">Ph 04</span></div>
+        <div class="req-deliver">Not in the BRD — we added this. All 5 lead forms collect personal data flowing to Zoho CRM. India's Digital Personal Data Protection Act 2023 requires a privacy policy, cookie consent, and data processing disclosure. GSLF serves PWD — WCAG 2.1 AA recommended.</div>
+      </div>
+    </div>
+    <div class="footnote"><span>Sources: BRD v2.1 Sec.6.1–6.10 · Sec.15 (Competitive Benchmark vs Pratham + Quest) · Sec.16 (KPIs) · DPDP Act 2023 · Google Search Central (301 redirects)</span><span class="fn-new">★ Amber rows = two items we added: 301 redirect map (prevents broken links when nav restructures) + DPDP Act 2023 privacy page (required for all personal data collected via lead forms)</span></div>
+  </section>
+
+  <!-- ── SLIDE 15: CLOSING ──────────────────────────────────────────────── -->
+  <section class="slide hero">
+    <div style="margin:auto 0; position:relative; z-index:1;">
+      <div class="eyebrow">Next step</div>
+      <h1>One conversation.<br/><span style="color:var(--terra);">Then we get to work.</span></h1>
+      <p class="tag" style="margin-top:1.2rem;">We've read the BRD. We've audited the site. We've benchmarked against Pratham and Quest Alliance. Let's spend 60 minutes confirming we're aligned — and we'll have a scoped proposal ready within a week.</p>
+      <div style="background:var(--green-800); border-radius:16px; padding:1.2rem 1.6rem; margin-top:1.5rem; display:inline-flex; align-items:center; gap:1.5rem;">
+        <span style="color:var(--terra-100); font-size:1.05rem; font-weight:600;">+91-9860430568</span>
+        <span style="color:var(--green-200); font-size:.95rem;">pratikgade@perfectskills.in</span>
+      </div>
+    </div>
+    <div class="footnote">
+      <span>Confidential — prepared for GSLF · Based on BRD v2.1, live site audit, funfirst.in, Pratham.org &amp; QuestAlliance.net</span>
+      <span>Engagement Approach · June 2026</span>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">1 / 14</div>
+<div class="nav">
+  <button id="prev" aria-label="Previous slide">&#8249;</button>
+  <button id="next" aria-label="Next slide">&#8250;</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let i = 0;
+  const counter  = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    counter.textContent  = (i + 1) + ' / ' + slides.length;
+    progress.style.width = ((i + 1) / slides.length * 100) + '%';
+  }
+  document.getElementById('next').onclick = () => show(i + 1);
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')                    { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End')  show(slides.length - 1);
+  });
+  show(0);
+</script>
+</body>
+</html>

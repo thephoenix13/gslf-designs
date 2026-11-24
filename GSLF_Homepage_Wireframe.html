@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GSLF Homepage — Wireframe</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #F1F3F5;
+  color: #374151;
+}
+
+/* ── ANNOTATION SYSTEM ── */
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  display: block;
+  margin-bottom: 6px;
+}
+.annotation {
+  display: inline-block;
+  background: #DBEAFE;
+  color: #1D4ED8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.section-note {
+  font-size: 11px;
+  color: #9CA3AF;
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* ── PLACEHOLDER BLOCKS ── */
+.img-block {
+  background: #D1D5DB;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.img-block.dark { background: #9CA3AF; color: #F3F4F6; }
+
+/* ── WIREFRAME BLOCKS ── */
+.wf-block {
+  background: #E5E7EB;
+  border: 1.5px dashed #9CA3AF;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font-size: 12px;
+  font-weight: 600;
+}
+.wf-block.solid {
+  background: #D1D5DB;
+  border: none;
+}
+.wf-block.dark {
+  background: #6B7280;
+  color: #F9FAFB;
+  border: none;
+}
+.wf-block.accent {
+  background: #374151;
+  color: #F9FAFB;
+  border: none;
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  position: relative;
+  background: #fff;
+  border-bottom: 2px solid #E5E7EB;
+}
+.section.gray { background: #F9FAFB; }
+.section.dark-bg { background: #374151; }
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 32px;
+}
+
+/* ── SECTION MARKER ── */
+.section-marker {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: #374151;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* ── TITLE ROW ── */
+.title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.title-row h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+/* ── NAV ── */
+.nav-bar {
+  background: #fff;
+  border-bottom: 2px solid #E5E7EB;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  max-width: 100%;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.logo-box { width: 42px; height: 42px; background: #D1D5DB; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #6B7280; }
+.logo-text { font-size: 13px; font-weight: 800; color: #374151; }
+.nav-links { display: flex; gap: 28px; }
+.nav-link { font-size: 12px; color: #6B7280; font-weight: 600; }
+.nav-cta { background: #374151; color: #fff; font-size: 11px; font-weight: 700; padding: 8px 18px; border-radius: 6px; }
+.nav-marker { font-size: 9px; color: #9CA3AF; margin-left: 32px; }
+
+/* ── GRID HELPERS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+
+/* ── COUNTER TILES ── */
+.counter-tile {
+  background: #F3F4F6;
+  border: 1.5px dashed #9CA3AF;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+.counter-num { font-size: 28px; font-weight: 900; color: #374151; }
+.counter-label { font-size: 10px; color: #9CA3AF; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+/* ── JOURNEY STEPS ── */
+.journey-row { display: flex; align-items: center; gap: 0; margin: 20px 0; }
+.journey-step {
+  flex: 1;
+  background: #E5E7EB;
+  border: 1.5px dashed #9CA3AF;
+  border-radius: 8px;
+  padding: 20px 12px;
+  text-align: center;
+}
+.journey-arrow {
+  width: 40px;
+  text-align: center;
+  color: #9CA3AF;
+  font-size: 20px;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+.journey-icon { width: 36px; height: 36px; background: #D1D5DB; border-radius: 50%; margin: 0 auto 8px; }
+.journey-title { font-size: 12px; font-weight: 700; color: #374151; }
+.journey-sub { font-size: 10px; color: #9CA3AF; margin-top: 3px; }
+
+/* ── CARD ── */
+.card {
+  background: #F3F4F6;
+  border: 1.5px dashed #9CA3AF;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.card-img { height: 120px; }
+.card-body { padding: 14px; }
+.card-title { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 6px; }
+.card-meta { font-size: 10px; color: #9CA3AF; margin-bottom: 4px; }
+.card-tag { display: inline-block; background: #D1D5DB; color: #6B7280; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-right: 4px; }
+.card-cta { display: block; background: #374151; color: #fff; text-align: center; font-size: 11px; font-weight: 700; padding: 8px; margin-top: 10px; border-radius: 4px; }
+
+/* ── STORY CARD ── */
+.story-card {
+  background: #F3F4F6;
+  border: 1.5px dashed #9CA3AF;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+.story-avatar { width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; }
+.story-body { flex: 1; }
+.story-name { font-size: 12px; font-weight: 700; color: #374151; }
+.story-meta { font-size: 10px; color: #9CA3AF; margin: 3px 0; }
+.story-salary { display: flex; gap: 8px; margin-top: 8px; }
+.salary-box { flex: 1; background: #E5E7EB; border-radius: 4px; padding: 6px 8px; font-size: 10px; color: #6B7280; text-align: center; }
+.salary-box .sal-val { font-size: 13px; font-weight: 800; color: #374151; display: block; }
+
+/* ── LOGO ROW ── */
+.logo-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.logo-placeholder { height: 36px; background: #E5E7EB; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #9CA3AF; font-weight: 600; }
+
+/* ── EMPLOYER SECTION ── */
+.employer-split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+
+/* ── INPUT ROW ── */
+.input-row { display: flex; gap: 10px; margin-top: 12px; }
+.wf-input { flex: 1; height: 40px; background: #E5E7EB; border-radius: 6px; border: 1.5px dashed #9CA3AF; display: flex; align-items: center; padding: 0 12px; font-size: 11px; color: #9CA3AF; }
+.wf-btn { height: 40px; padding: 0 20px; background: #374151; color: #fff; border-radius: 6px; font-size: 11px; font-weight: 700; display: flex; align-items: center; }
+
+/* ── FOOTER ── */
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 24px; }
+.footer-col-title { font-size: 11px; font-weight: 700; color: #D1D5DB; margin-bottom: 10px; }
+.footer-link-row { height: 10px; background: #6B7280; border-radius: 3px; margin-bottom: 7px; }
+
+/* ── MOU STRIP ── */
+.mou-row { display: flex; gap: 12px; overflow: hidden; }
+.mou-tile { flex: 1; min-width: 100px; background: #F3F4F6; border: 1.5px dashed #D1D5DB; border-radius: 8px; padding: 12px; text-align: center; }
+.mou-seal { width: 32px; height: 32px; background: #D1D5DB; border-radius: 50%; margin: 0 auto 6px; }
+.mou-name { font-size: 10px; color: #6B7280; font-weight: 600; }
+
+/* ── STICKY WA ── */
+.sticky-wa {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px; height: 52px;
+  background: #4B5563;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+.sticky-label {
+  position: fixed;
+  bottom: 32px;
+  right: 84px;
+  background: #374151;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  z-index: 999;
+}
+
+/* ── WIREFRAME HEADER ── */
+.wf-header {
+  background: #1E293B;
+  color: #fff;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wf-header h1 { font-size: 15px; font-weight: 800; }
+.wf-header p { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+.wf-legend { display: flex; gap: 16px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #94A3B8; }
+.legend-box { width: 14px; height: 14px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- WF HEADER -->
+<div class="wf-header">
+  <div>
+    <h1>GSLF Homepage — Wireframe</h1>
+    <p>Layout skeleton · All sections · Desktop view · Not to scale</p>
+  </div>
+  <div class="wf-legend">
+    <div class="legend-item"><div class="legend-box" style="background:#D1D5DB;"></div> Image placeholder</div>
+    <div class="legend-item"><div class="legend-box" style="background:#E5E7EB;border:1.5px dashed #9CA3AF;"></div> Content block</div>
+    <div class="legend-item"><div class="legend-box" style="background:#374151;"></div> CTA / Button</div>
+    <div class="legend-item"><div class="legend-box" style="background:#DBEAFE;"></div> Section annotation</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 01 — NAVIGATION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="nav-bar">
+  <div class="nav-logo">
+    <div class="logo-box">LOGO</div>
+    <div class="logo-text">GSLF</div>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link">Courses</span>
+    <span class="nav-link">For Employers</span>
+    <span class="nav-link">Our Impact</span>
+    <span class="nav-link">Success Stories</span>
+    <span class="nav-link">About Us</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="wf-block" style="width:80px;height:32px;font-size:10px;">Hindi | EN</div>
+    <div class="nav-cta">Donate</div>
+    <span class="nav-marker">← Sticky on scroll</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 02 — HERO -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" style="background:#374151;">
+  <div class="section-marker">02 — Hero</div>
+  <div class="section-inner">
+    <span class="annotation" style="background:#4B5563;color:#E5E7EB;">Full-width · Video or high-quality image background</span>
+    <div class="grid-2" style="align-items:center;gap:48px;">
+      <div>
+        <div class="wf-block" style="height:20px;width:60%;margin-bottom:14px;background:#4B5563;border:none;font-size:10px;">Headline — Learn Skills. Get Certified. Get Hired.</div>
+        <div class="wf-block" style="height:12px;width:85%;margin-bottom:6px;background:#6B7280;border:none;"></div>
+        <div class="wf-block" style="height:12px;width:70%;margin-bottom:24px;background:#6B7280;border:none;"></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <div class="wf-block accent" style="height:44px;width:150px;font-size:11px;">Find Courses →</div>
+          <div class="wf-block" style="height:44px;width:140px;background:#6B7280;border:none;font-size:11px;color:#fff;">Hire Talent →</div>
+          <div class="wf-block" style="height:44px;width:160px;background:#6B7280;border:none;font-size:11px;color:#fff;">Support a Student →</div>
+        </div>
+        <div class="section-note" style="color:#9CA3AF;margin-top:14px;">3 CTAs serving 3 audiences simultaneously</div>
+      </div>
+      <div class="img-block dark" style="height:340px;font-size:13px;">Student / Aspirational<br/>Hero Image<br/>[ Real photo — no stock ]</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 03 — IMPACT COUNTERS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" style="background:#1E293B;">
+  <div class="section-marker">03 — Impact Strip</div>
+  <div class="section-inner" style="padding:24px 32px;">
+    <span class="annotation" style="background:#374151;color:#94A3B8;margin-bottom:16px;">Animated on scroll · Admin-editable · Full-width strip</span>
+    <div class="grid-5">
+      <div class="counter-tile" style="background:#374151;border-color:#4B5563;">
+        <div class="counter-num" style="color:#fff;">20,000+</div>
+        <div class="counter-label" style="color:#9CA3AF;">Students Trained</div>
+      </div>
+      <div class="counter-tile" style="background:#374151;border-color:#4B5563;">
+        <div class="counter-num" style="color:#fff;">16,000+</div>
+        <div class="counter-label" style="color:#9CA3AF;">Placed in Jobs</div>
+      </div>
+      <div class="counter-tile" style="background:#374151;border-color:#4B5563;">
+        <div class="counter-num" style="color:#fff;">60+</div>
+        <div class="counter-label" style="color:#9CA3AF;">Training Labs</div>
+      </div>
+      <div class="counter-tile" style="background:#374151;border-color:#4B5563;">
+        <div class="counter-num" style="color:#fff;">100+</div>
+        <div class="counter-label" style="color:#9CA3AF;">Employer Partners</div>
+      </div>
+      <div class="counter-tile" style="background:#374151;border-color:#4B5563;">
+        <div class="counter-num" style="color:#fff;">12+</div>
+        <div class="counter-label" style="color:#9CA3AF;">States Covered</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 04 — STUDENT JOURNEY -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-marker">04 — Student Journey</div>
+  <div class="section-inner">
+    <div class="title-row">
+      <span class="annotation">Your path to employment</span>
+    </div>
+    <div class="wf-block" style="height:16px;width:40%;margin-bottom:20px;"></div>
+    <div class="journey-row">
+      <div class="journey-step">
+        <div class="journey-icon"></div>
+        <div class="journey-title">1. Enroll</div>
+        <div class="journey-sub">Choose course · Pick centre · Apply</div>
+      </div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step">
+        <div class="journey-icon"></div>
+        <div class="journey-title">2. Learn</div>
+        <div class="journey-sub">Hands-on training · Certified faculty</div>
+      </div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step">
+        <div class="journey-icon"></div>
+        <div class="journey-title">3. Get Certified</div>
+        <div class="journey-sub">NCVET / NSDC certification</div>
+      </div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step">
+        <div class="journey-icon"></div>
+        <div class="journey-title">4. Get Placed</div>
+        <div class="journey-sub">Job placement · Salary outcome</div>
+      </div>
+    </div>
+    <div class="section-note">Icons to be designed · Steps are clickable and expand on hover</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 05 — FEATURED COURSES -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section gray">
+  <div class="section-marker">05 — Featured Courses</div>
+  <div class="section-inner">
+    <div class="title-row">
+      <span class="annotation">Student-facing · Outcome-first</span>
+      <h3>Featured Courses</h3>
+    </div>
+    <div class="grid-3" style="margin-bottom:20px;">
+      <!-- Course Card 1 -->
+      <div class="card">
+        <div class="img-block card-img">Course Image Placeholder</div>
+        <div class="card-body">
+          <div class="card-title">RACW — Refrigeration & AC</div>
+          <div class="card-meta">⏱ 3 Months &nbsp;·&nbsp; 📍 Pune, Aurangabad, Chennai</div>
+          <div class="card-meta">💰 Expected: ₹15,000–25,000/mo</div>
+          <div style="margin-top:8px;">
+            <span class="card-tag">Voltas</span>
+            <span class="card-tag">LG</span>
+            <span class="card-tag">Panasonic</span>
+          </div>
+          <div class="card-cta">Apply Now →</div>
+        </div>
+      </div>
+      <!-- Course Card 2 -->
+      <div class="card">
+        <div class="img-block card-img">Course Image Placeholder</div>
+        <div class="card-body">
+          <div class="card-title">EV Technician</div>
+          <div class="card-meta">⏱ 4 Months &nbsp;·&nbsp; 📍 Mumbai, Nashik, Pune</div>
+          <div class="card-meta">💰 Expected: ₹18,000–30,000/mo</div>
+          <div style="margin-top:8px;">
+            <span class="card-tag">Tata Motors</span>
+            <span class="card-tag">Ola Electric</span>
+          </div>
+          <div class="card-cta">Apply Now →</div>
+        </div>
+      </div>
+      <!-- Course Card 3 -->
+      <div class="card">
+        <div class="img-block card-img">Course Image Placeholder</div>
+        <div class="card-body">
+          <div class="card-title">Optical Fiber Technician</div>
+          <div class="card-meta">⏱ 3 Months &nbsp;·&nbsp; 📍 Hyderabad, Jammu</div>
+          <div class="card-meta">💰 Expected: ₹16,000–22,000/mo</div>
+          <div style="margin-top:8px;">
+            <span class="card-tag">Jio</span>
+            <span class="card-tag">Airtel</span>
+          </div>
+          <div class="card-cta">Apply Now →</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="wf-block" style="height:40px;width:180px;margin:0 auto;font-size:11px;">View All Courses →</div>
+    </div>
+    <div class="section-note" style="text-align:center;margin-top:8px;">CMS-editable · Admin updates courses, salary, batch dates without developer</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 06 — SUCCESS STORIES -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-marker">06 — Success Stories</div>
+  <div class="section-inner">
+    <div class="title-row">
+      <span class="annotation">Real names · Real salaries · Like Pratham — but better</span>
+      <h3>Stories of Change</h3>
+    </div>
+    <div class="grid-3" style="margin-bottom:20px;">
+      <!-- Story 1 -->
+      <div class="story-card" style="flex-direction:column;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;">
+          <div class="img-block story-avatar" style="width:52px;height:52px;">Photo</div>
+          <div>
+            <div class="story-name">Priya Shinde</div>
+            <div class="story-meta">RACW Course · Pune Centre</div>
+            <div class="story-meta">Now at: Voltas Ltd.</div>
+          </div>
+        </div>
+        <div class="salary-box" style="background:#E5E7EB;padding:10px;border-radius:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#9CA3AF;font-weight:600;text-transform:uppercase;">Before</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹0</div>
+              <div style="font-size:9px;color:#9CA3AF;">Unemployed</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#6B7280;font-weight:600;text-transform:uppercase;">After</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹22,000</div>
+              <div style="font-size:9px;color:#6B7280;">Per Month</div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-block" style="height:10px;margin-top:10px;width:100%;"></div>
+        <div class="wf-block" style="height:10px;margin-top:5px;width:80%;"></div>
+      </div>
+      <!-- Story 2 -->
+      <div class="story-card" style="flex-direction:column;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;">
+          <div class="img-block story-avatar" style="width:52px;height:52px;">Photo</div>
+          <div>
+            <div class="story-name">Raju Kamble</div>
+            <div class="story-meta">EV Technician · Mumbai</div>
+            <div class="story-meta">Now at: Ola Electric</div>
+          </div>
+        </div>
+        <div class="salary-box" style="background:#E5E7EB;padding:10px;border-radius:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#9CA3AF;font-weight:600;text-transform:uppercase;">Before</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹8,000</div>
+              <div style="font-size:9px;color:#9CA3AF;">Helper</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#6B7280;font-weight:600;text-transform:uppercase;">After</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹28,000</div>
+              <div style="font-size:9px;color:#6B7280;">Per Month</div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-block" style="height:10px;margin-top:10px;width:100%;"></div>
+        <div class="wf-block" style="height:10px;margin-top:5px;width:75%;"></div>
+      </div>
+      <!-- Story 3 -->
+      <div class="story-card" style="flex-direction:column;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:10px;">
+          <div class="img-block story-avatar" style="width:52px;height:52px;">Photo</div>
+          <div>
+            <div class="story-name">Fatima Sheikh</div>
+            <div class="story-meta">Optical Fiber · Hyderabad</div>
+            <div class="story-meta">Now at: Jio Networks</div>
+          </div>
+        </div>
+        <div class="salary-box" style="background:#E5E7EB;padding:10px;border-radius:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#9CA3AF;font-weight:600;text-transform:uppercase;">Before</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹5,000</div>
+              <div style="font-size:9px;color:#9CA3AF;">Part-time</div>
+            </div>
+            <div style="font-size:18px;color:#9CA3AF;">→</div>
+            <div style="text-align:center;">
+              <div style="font-size:9px;color:#6B7280;font-weight:600;text-transform:uppercase;">After</div>
+              <div style="font-size:15px;font-weight:900;color:#374151;">₹19,000</div>
+              <div style="font-size:9px;color:#6B7280;">Per Month</div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-block" style="height:10px;margin-top:10px;width:100%;"></div>
+        <div class="wf-block" style="height:10px;margin-top:5px;width:70%;"></div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div class="wf-block" style="height:40px;width:200px;margin:0 auto;font-size:11px;">Read All Stories →</div>
+    </div>
+    <div class="section-note" style="text-align:center;margin-top:8px;">Reels-ready 9:16 format — GSLF can export and post to Instagram directly</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 07 — PARTNER / EMPLOYER LOGOS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section gray">
+  <div class="section-marker">07 — Employer Logo Wall</div>
+  <div class="section-inner" style="padding:28px 32px;">
+    <div class="title-row">
+      <span class="annotation">Suggested: Hiring counts next to logos</span>
+      <h3>Our Placement Partners</h3>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+      <div class="logo-placeholder" style="width:120px;">Voltas · 320 hired</div>
+      <div class="logo-placeholder" style="width:100px;">LG · 180 hired</div>
+      <div class="logo-placeholder" style="width:120px;">Panasonic · 95 hired</div>
+      <div class="logo-placeholder" style="width:110px;">Tata Motors · 140 hired</div>
+      <div class="logo-placeholder" style="width:110px;">Ola Electric · 88 hired</div>
+      <div class="logo-placeholder" style="width:80px;">Jio · 210 hired</div>
+      <div class="logo-placeholder" style="width:90px;">Airtel · 130 hired</div>
+      <div class="logo-placeholder" style="width:80px;">+ 93 more</div>
+    </div>
+    <div class="section-note" style="margin-top:12px;">Suggested: Hiring counts replace generic logo wall · Builds trust with both students and new employers</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 08 — STATE GOVT MOU STRIP -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-marker">08 — State MoU Strip [Suggested]</div>
+  <div class="section-inner" style="padding:24px 32px;">
+    <div class="title-row">
+      <span class="annotation">Suggested · Credibility for rural students + parents</span>
+      <h3>Active State Government Partnerships</h3>
+    </div>
+    <div class="mou-row">
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">Maharashtra</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">Rajasthan</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">Telangana</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">J & K</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">Karnataka</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">UP</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">Tamil Nadu</div></div>
+      <div class="mou-tile"><div class="mou-seal"></div><div class="mou-name">+ More</div></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+      <div class="logo-placeholder" style="height:40px;width:130px;font-size:11px;">NSDC Logo</div>
+      <div class="logo-placeholder" style="height:40px;width:130px;font-size:11px;">Skill India Logo</div>
+      <div class="logo-placeholder" style="height:40px;width:100px;font-size:11px;">NCVET Logo</div>
+      <div class="logo-placeholder" style="height:40px;width:90px;font-size:11px;">TISS Logo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 09 — FOR EMPLOYERS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" style="background:#F3F4F6;">
+  <div class="section-marker">09 — Employer Section</div>
+  <div class="section-inner">
+    <div class="employer-split">
+      <div>
+        <span class="annotation">Employer-facing · Outcome language · Not NGO tone</span>
+        <div class="wf-block" style="height:18px;width:70%;margin:12px 0 8px;"></div>
+        <div class="wf-block" style="height:10px;width:90%;margin-bottom:6px;"></div>
+        <div class="wf-block" style="height:10px;width:80%;margin-bottom:6px;"></div>
+        <div class="wf-block" style="height:10px;width:75%;margin-bottom:20px;"></div>
+        <div style="display:flex;gap:10px;">
+          <div class="wf-block accent" style="height:44px;width:180px;font-size:11px;">Request Talent →</div>
+          <div class="wf-block solid" style="height:44px;width:180px;font-size:11px;color:#374151;">View Apprenticeship →</div>
+        </div>
+        <div class="section-note" style="margin-top:10px;">Lead form → Zoho CRM (Phase 2)</div>
+      </div>
+      <div>
+        <div class="img-block" style="height:260px;background:#D1D5DB;">Employer / Hiring Visual<br/>[ Workplace photo ]</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 10 — NEWSLETTER / DONATE STRIP -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" style="background:#1E293B;">
+  <div class="section-marker">10 — Newsletter Strip</div>
+  <div class="section-inner" style="padding:32px;">
+    <div class="grid-2" style="align-items:center;gap:40px;">
+      <div>
+        <span class="annotation" style="background:#374151;color:#94A3B8;">Donor + CSR audience · Monthly Impact Update</span>
+        <div class="wf-block" style="height:16px;width:75%;margin:12px 0 8px;background:#4B5563;border:none;"></div>
+        <div class="wf-block" style="height:10px;width:85%;background:#4B5563;border:none;margin-bottom:4px;"></div>
+        <div class="wf-block" style="height:10px;width:65%;background:#4B5563;border:none;"></div>
+        <div class="input-row" style="margin-top:16px;">
+          <div class="wf-input" style="background:#374151;border-color:#6B7280;color:#6B7280;">Email address</div>
+          <div class="wf-btn">Subscribe</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <div class="wf-block" style="height:18px;width:60%;margin:0 auto 12px;background:#4B5563;border:none;"></div>
+        <div class="wf-block accent" style="height:48px;width:200px;margin:0 auto;font-size:13px;">Support a Student →</div>
+        <div class="section-note" style="color:#6B7280;margin-top:8px;">Donate CTA · Donor-facing language</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 11 — FOOTER -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section" style="background:#111827;">
+  <div class="section-marker" style="background:#374151;">11 — Footer</div>
+  <div class="section-inner">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div class="logo-box" style="background:#374151;color:#9CA3AF;">LOGO</div>
+          <span style="color:#D1D5DB;font-size:13px;font-weight:700;">GSLF</span>
+        </div>
+        <div class="wf-block" style="height:9px;width:90%;margin-bottom:5px;background:#374151;border:none;"></div>
+        <div class="wf-block" style="height:9px;width:80%;margin-bottom:5px;background:#374151;border:none;"></div>
+        <div class="wf-block" style="height:9px;width:70%;margin-bottom:16px;background:#374151;border:none;"></div>
+        <div style="font-size:10px;color:#6B7280;margin-bottom:8px;">FGSPL Disclosure text</div>
+        <div style="display:flex;gap:8px;">
+          <div class="wf-block" style="width:28px;height:28px;background:#374151;border:none;font-size:9px;">in</div>
+          <div class="wf-block" style="width:28px;height:28px;background:#374151;border:none;font-size:9px;">ig</div>
+          <div class="wf-block" style="width:28px;height:28px;background:#374151;border:none;font-size:9px;">fb</div>
+          <div class="wf-block" style="width:28px;height:28px;background:#374151;border:none;font-size:9px;">yt</div>
+          <div class="wf-block" style="width:28px;height:28px;background:#374151;border:none;font-size:9px;">x</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-link-row" style="width:70%;"></div>
+        <div class="footer-link-row" style="width:60%;"></div>
+        <div class="footer-link-row" style="width:80%;"></div>
+        <div class="footer-link-row" style="width:55%;"></div>
+        <div class="footer-link-row" style="width:65%;"></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Our Courses</div>
+        <div class="footer-link-row" style="width:75%;"></div>
+        <div class="footer-link-row" style="width:65%;"></div>
+        <div class="footer-link-row" style="width:80%;"></div>
+        <div class="footer-link-row" style="width:55%;"></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-link-row" style="width:90%;"></div>
+        <div class="footer-link-row" style="width:70%;"></div>
+        <div class="footer-link-row" style="width:60%;margin-bottom:14px;"></div>
+        <div class="wf-block" style="height:36px;width:140px;background:#374151;border:none;font-size:10px;color:#9CA3AF;">WhatsApp Us</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #374151;margin-top:24px;padding-top:14px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:10px;color:#6B7280;">© 2026 GSLF. All rights reserved. FCRA Registered.</div>
+      <div style="display:flex;gap:16px;">
+        <div class="wf-block" style="height:10px;width:80px;background:#374151;border:none;"></div>
+        <div class="wf-block" style="height:10px;width:70px;background:#374151;border:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY WHATSAPP -->
+<div class="sticky-label">WhatsApp Us</div>
+<div class="sticky-wa">WA</div>
+
+</body>
+</html>
